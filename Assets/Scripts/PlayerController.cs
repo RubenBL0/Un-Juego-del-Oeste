@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,12 +10,15 @@ public class PlayerController : MonoBehaviour
 
     private float mh;
     private float mv;
+
+    private bool activable;
     
     private Vector2 playerInput;
 
     // Start is called before the first frame update
     void Start()
     {
+        activable = false;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -30,5 +34,27 @@ public class PlayerController : MonoBehaviour
         playerInput = Vector2.ClampMagnitude(playerInput, 1);
 
         rb.MovePosition(movePlayer + playerInput * speed * Time.deltaTime);
+
+        if (activable && Input.GetKey(KeyCode.P))
+        {
+            SceneManager.LoadScene("PlaceHolder_Minijuego");
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("trigger detectado");
+
+        if (other.transform.tag == "minijuego")
+        {
+            activable = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("saliendo del trigger");
+        if (other.transform.tag == "minijuego")
+        {
+            activable = false;
+        }
     }
 }
