@@ -88,6 +88,6 @@ public class DueloManager : MonoBehaviour
 
     void CheckKey(char c)
     {
-        Input.GetButton()
+
     }
 }
