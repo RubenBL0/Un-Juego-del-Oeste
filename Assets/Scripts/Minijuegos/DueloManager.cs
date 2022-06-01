@@ -12,6 +12,7 @@ public class DueloManager : MonoBehaviour
     [SerializeField, Range(6f, 15f)] float maxTime = 10f;
     float duelTime; //Tiempo que va a durar el duelo (aleatorio)
     [SerializeField, Range(0.5f, 2f)] float stepTime; //Tiempo para dar cada paso
+    [SerializeField, Range(0.5f, 2f)] float fireTime; //Tiempo para disparar antes que el enemigo
 
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemy;
@@ -19,12 +20,26 @@ public class DueloManager : MonoBehaviour
     [SerializeField] Canvas canvasFire;
     [SerializeField] TextMeshProUGUI txtKey;
 
+    //Animators
+    Animator playerAnim;
+    Animator enemyAnim;
+
+    //Health
+    [SerializeField] int playerHealth = 3;
+    [SerializeField] int enemyHealth = 3;
+
+    //Corazones
+    [SerializeField] GameObject[] playerHearts = new GameObject[3];
+    [SerializeField] GameObject[] enemyHearts = new GameObject[3];
+
     // Start is called before the first frame update
     void Start()
     {
-        print(KeyCode.A.ToString());
         canvasFire.gameObject.SetActive(false);
         duelTime = GetDuelTime();
+
+        playerAnim = player.GetComponent<Animator>();
+        enemyAnim = enemy.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -55,8 +70,8 @@ public class DueloManager : MonoBehaviour
             if(stepTime > duelTime)
             {
                 yield return new WaitForSeconds(duelTime);
-                ShowMessage();
                 //Disparar
+                StartFire(); //Sale el mensaje en pantalla y empieza el timer
                 duelTime = 0f;
             }
         }
@@ -69,13 +84,13 @@ public class DueloManager : MonoBehaviour
         enemy.transform.position = new Vector2(enemy.transform.position.x + 0.5f, enemy.transform.position.y);
     }
 
-    void ShowMessage()
+    void StartFire()
     {
         char c = RandomKey();
         canvasFire.gameObject.SetActive(true);
         txtKey.SetText(c.ToString());
 
-        CheckKey(c);
+        StartCoroutine(CheckKey(c));
     }
 
     char RandomKey()
@@ -86,8 +101,78 @@ public class DueloManager : MonoBehaviour
         return c;
     }
 
-    void CheckKey(char c)
+    IEnumerator CheckKey(char c)
+    {
+        float currentTime = 0f;
+        while (currentTime < fireTime)
+        {
+            currentTime += Time.deltaTime;
+
+            KeyCode myKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), c.ToString());
+            if (Input.GetKeyDown(myKeyCode))
+            {
+                print("ganaste");
+                WinDuel();
+                yield break;
+            }
+            else
+            {
+                if (Input.anyKeyDown)
+                {
+                    print("moriste");
+                    LoseDuel();
+                    yield break;
+
+                }
+            }
+            yield return null;
+        }
+        print("TIEMPO!");
+        LoseDuel();
+        yield return null;
+    }
+
+    void WinDuel()
+    {
+        enemyHealth -= 1;
+        playerAnim.SetTrigger("Shooting");
+        enemyAnim.SetTrigger("Dead");
+        CheckGameState();
+    }
+
+    void LoseDuel()
+    {
+        playerHealth -= 1;
+        enemyAnim.SetTrigger("Shooting");
+        playerAnim.SetTrigger("Dead");
+        CheckGameState();
+    }
+
+    void CheckGameState()
+    {
+        UpdateHealth();
+        if(playerHealth <= 0)
+        {
+            LoseGame();
+        }
+        if(enemyHealth <= 0)
+        {
+            WinGame();
+        }
+    }
+
+    //Cambiar los corazones
+    void UpdateHealth()
     {
 
+    }
+    void LoseGame()
+    {
+        print("Has perdido...");
+    }
+
+    void WinGame()
+    {
+        print("¡Has ganado!");
     }
 }
