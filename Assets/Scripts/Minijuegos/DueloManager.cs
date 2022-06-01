@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DueloManager : MonoBehaviour
 {
@@ -16,10 +17,12 @@ public class DueloManager : MonoBehaviour
     [SerializeField] GameObject enemy;
 
     [SerializeField] Canvas canvasFire;
+    [SerializeField] TextMeshProUGUI txtKey;
 
     // Start is called before the first frame update
     void Start()
     {
+        print(KeyCode.A.ToString());
         canvasFire.gameObject.SetActive(false);
         duelTime = GetDuelTime();
     }
@@ -70,6 +73,7 @@ public class DueloManager : MonoBehaviour
     {
         char c = RandomKey();
         canvasFire.gameObject.SetActive(true);
+        txtKey.SetText(c.ToString());
 
         CheckKey(c);
     }
@@ -84,6 +88,6 @@ public class DueloManager : MonoBehaviour
 
     void CheckKey(char c)
     {
-        char input = Input.anyKey.ToString
+        Input.GetButton()
     }
 }
