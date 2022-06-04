@@ -17,6 +17,9 @@ public class DueloManager : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemy;
 
+    [SerializeField] Transform playerOrigin;
+    [SerializeField] Transform enemyOrigin;
+
     [SerializeField] Canvas canvasFire;
     [SerializeField] TextMeshProUGUI txtKey;
 
@@ -31,6 +34,7 @@ public class DueloManager : MonoBehaviour
     //Corazones
     [SerializeField] GameObject[] playerHearts = new GameObject[3];
     [SerializeField] GameObject[] enemyHearts = new GameObject[3];
+    [SerializeField] Sprite emptyHeartSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -155,16 +159,41 @@ public class DueloManager : MonoBehaviour
         {
             LoseGame();
         }
-        if(enemyHealth <= 0)
+        else if(enemyHealth <= 0)
         {
             WinGame();
+        }
+        else
+        {
+            Restart();
         }
     }
 
     //Cambiar los corazones
     void UpdateHealth()
     {
-
+        if(enemyHealth < 3)
+        {
+            enemyHearts[enemyHealth].GetComponent<SpriteRenderer>().sprite = emptyHeartSprite;
+        }
+        if (playerHealth < 3)
+        {
+            playerHearts[playerHealth].GetComponent<SpriteRenderer>().sprite = emptyHeartSprite;
+        }
+        if(enemyHealth == 1)
+        {
+            foreach(GameObject heart in enemyHearts)
+            {
+                heart.GetComponent<Animator>().SetTrigger("SpeedUp");
+            }
+        }
+        if (playerHealth == 1)
+        {
+            foreach (GameObject heart in playerHearts)
+            {
+                heart.GetComponent<Animator>().SetTrigger("SpeedUp");
+            }
+        }
     }
     void LoseGame()
     {
@@ -174,5 +203,31 @@ public class DueloManager : MonoBehaviour
     void WinGame()
     {
         print("¡Has ganado!");
+    }
+
+    void Restart()
+    {
+        StartCoroutine(RestartCoroutine());
+        canvasFire.gameObject.SetActive(false);
+        duelTime = GetDuelTime();
+    }
+    
+    IEnumerator RestartCoroutine()
+    {
+        float maxTime = 2f;
+        float restartTime = 0f;
+        while (restartTime < maxTime)
+        {
+            restartTime += Time.deltaTime;
+            yield return null;
+        }
+
+        playerAnim.SetTrigger("Base");
+        enemyAnim.SetTrigger("Base");
+
+        player.transform.position = playerOrigin.position;
+        enemy.transform.position = enemyOrigin.position;
+
+        gameCoroutine = StartCoroutine(TimeCoroutine());
     }
 }

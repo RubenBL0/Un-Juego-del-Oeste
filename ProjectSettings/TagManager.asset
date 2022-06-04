@@ -6,6 +6,7 @@ TagManager:
   tags:
   - minijuego
   - vaquilla
+  - InteriorCorazon
   layers:
   - Default
   - TransparentFX
