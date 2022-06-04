@@ -17,6 +17,7 @@ public class Dragger : MonoBehaviour
     private void OnMouseDown()
     {
         vaquilla.Atrapada();
+        vaquilla.linea.DibujaLinea();
         dragOffset = transform.position - GetMousePos();
     }
     private void OnMouseDrag()

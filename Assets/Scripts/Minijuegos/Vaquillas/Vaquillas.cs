@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Vaquillas : MonoBehaviour
 {
+    public delegate void DelegateVaquilla();
+    public static event DelegateVaquilla establoEntrando;
+    public static event DelegateVaquilla establoSaliendo;
+
     [SerializeField]private Rigidbody2D rb;
     [SerializeField, Range(0f, 5f)] private float speed;
+    public lr_LineController linea;
 
     private float mh;
     private float mv;
@@ -18,6 +23,7 @@ public class Vaquillas : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        linea = FindObjectOfType<lr_LineController>();
         atrapada = false;
         StartCoroutine(MueveVaquilla());
     }
@@ -26,13 +32,30 @@ public class Vaquillas : MonoBehaviour
         atrapada = true;
         rb.velocity = Vector2.zero; 
         rb.angularVelocity = 0f;
+        linea.lr.enabled = true;
+        linea.lr_points[0] = gameObject.transform;
     }
     public void Liberada()
     {
         atrapada = false;
+        linea.lr.enabled = false;
+        linea.lr_points[0] = null;
         StartCoroutine(MueveVaquilla());
     }
-
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "establo")
+        {
+            establoEntrando();
+        }
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "establo")
+        {
+            establoSaliendo();
+        }
+    }
     IEnumerator MueveVaquilla()
     {
         while (!atrapada)
