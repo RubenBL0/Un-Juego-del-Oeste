@@ -6,11 +6,11 @@ using TMPro;
 public class MiniGameManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI t_puntos;
+    [SerializeField] private TextMeshProUGUI t_timer;
     [SerializeField] private GameObject vaquilla;
     [SerializeField] private Collider2D suelo;
-    [SerializeField] private int n_vacas;
-    private int puntos;
-    private int puntosAnteriores;    
+    [SerializeField, Tooltip("Tiempo en segundos")] private float timerTime;
+    private int n_vacas, puntos, puntosAnteriores, minutos, segundos, centesimas;    
 
     private void OnEnable()
     {
@@ -27,6 +27,7 @@ public class MiniGameManager : MonoBehaviour
         puntos = 0;
         puntosAnteriores = 0;
         StartCoroutine(SumaPuntos());
+        StartCoroutine(StartTimer());
     }
     void Update()
     {
@@ -64,6 +65,30 @@ public class MiniGameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(4);
             puntos += 1 * n_vacas;
+        }
+    }
+    IEnumerator StartTimer()
+    {
+        while (true)
+        {
+            timerTime -= Time.deltaTime;
+
+            if (timerTime < 0) timerTime = 0;
+
+            minutos = (int)(timerTime / 60f);
+            segundos = (int)(timerTime - minutos * 60f);
+            centesimas = (int)((timerTime - (int)timerTime) * 100f);
+
+            t_timer.text = string.Format("{0:00}:{1:00}:{2:00}", minutos, segundos, centesimas);
+
+            if (timerTime == 0) 
+            {
+                Time.timeScale = 0;
+                Debug.Log("Tiempo parado");
+                break;
+            }
+
+            yield return null;
         }
     }
 }
