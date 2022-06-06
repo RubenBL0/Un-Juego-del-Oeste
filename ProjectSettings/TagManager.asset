@@ -8,6 +8,8 @@ TagManager:
   - vaquilla
   - InteriorCorazon
   - establo
+  - tren
+  - cabina
   layers:
   - Default
   - TransparentFX
