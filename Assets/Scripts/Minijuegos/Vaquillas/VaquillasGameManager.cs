@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MiniGameManager : MonoBehaviour
+public class VaquillasGameManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI t_puntos;
     [SerializeField] private TextMeshProUGUI t_timer;

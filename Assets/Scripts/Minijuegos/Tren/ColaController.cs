@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CabinaController : MonoBehaviour
+public class ColaController : MonoBehaviour
 {
     [SerializeField] private TrainController tren;
-    private float prevLimVelocidad;
     private bool controlCorrutina;
+    private int vecesAlcanzado;
 
     private void Awake()
     {
         controlCorrutina = true;
+        vecesAlcanzado = 0;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,19 +21,35 @@ public class CabinaController : MonoBehaviour
 
             if (controlCorrutina)
             {
-                tren.controlCabina = false;
-                prevLimVelocidad = tren.limVelocidad;
-                StartCoroutine(EscapaDelPlayer(prevLimVelocidad));
+                vecesAlcanzado++;
                 controlCorrutina = false;
+                if (vecesAlcanzado <= 3) StartCoroutine(EscapaDelPlayer());                
             }
         }
     }
-    IEnumerator EscapaDelPlayer(float a)
+    IEnumerator EscapaDelPlayer()
     {
         tren.limVelocidad = 60f;
         yield return new WaitForSeconds(5f);
-        tren.limVelocidad = a;
+
+        switch (vecesAlcanzado)
+        {
+            case 1:
+                tren.limVelocidad = 40f;
+                break;
+
+            case 2:
+                tren.limVelocidad = 45f;
+                break;
+
+            case 3:
+                tren.limVelocidad = 48f;
+                break;
+
+            default:
+                break;
+        }
+
         controlCorrutina = true;
-        tren.controlCabina = true;
     }
 }

@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 673905823}
   - component: {fileID: 673905822}
   m_Layer: 0
-  m_Name: MiniGameManager
+  m_Name: VaquillasGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
