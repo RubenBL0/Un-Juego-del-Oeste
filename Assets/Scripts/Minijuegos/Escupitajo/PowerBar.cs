@@ -10,6 +10,10 @@ public class PowerBar : MonoBehaviour
     [SerializeField] Image imageBar;
     [SerializeField] float speed = 2f;
 
+    [SerializeField] Spittle escupitajo;
+
+
+    bool canMoveBar = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +24,17 @@ public class PowerBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (canMoveBar)
         {
-            ChargeBar();
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            ReleaseBar();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                ChargeBar();
+            }
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                ReleaseBar();
+            }
+
         }
     }
 
@@ -64,7 +72,11 @@ public class PowerBar : MonoBehaviour
 
     void ReleaseBar()
     {
+        float power = imageBar.fillAmount * 10f;
+        canMoveBar = false;
         charging = false;
+        print(power);
+        Spit(power);
     }
 
     void ChangeDirection()
@@ -77,6 +89,17 @@ public class PowerBar : MonoBehaviour
         {
             direction = Direction.Right;
         }
+    }
+
+    void Spit(float amount)
+    {
+        escupitajo.Spit(amount);
+    }
+
+    public void HideBar()
+    {
+        canMoveBar = true;
+        imageBar.fillAmount = 0f;
     }
 }
 

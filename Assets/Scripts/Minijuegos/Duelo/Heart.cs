@@ -6,16 +6,11 @@ public class Heart : MonoBehaviour
 {
     [SerializeField] float beatTime = 1f;
     [SerializeField] GameObject fill;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StartCoroutine(HeartCoroutine());
     }
 
     public void EmptyHeart()
@@ -38,6 +33,7 @@ public class Heart : MonoBehaviour
         transform.localScale *= 2f;
     }
 
+    //Acelera el pulso de los corazones
     public void SpeedUpBeat()
     {
         beatTime *= 0.5f;

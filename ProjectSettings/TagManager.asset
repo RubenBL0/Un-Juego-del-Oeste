@@ -10,6 +10,8 @@ TagManager:
   - establo
   - tren
   - cola
+  - Suelo
+  - Caldero
   layers:
   - Default
   - TransparentFX
