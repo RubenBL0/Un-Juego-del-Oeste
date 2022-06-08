@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]private Rigidbody2D rb;
-    [SerializeField, Range(0f, 20f)] private float speed;
+    private Rigidbody2D rb;
+    [SerializeField, Range(0f, 50f)] private float speed;
 
     private float mh;
     private float mv;
-
-    private bool activable;
     
     private Vector2 playerInput;
+
+    private Minijuego minijuego;
 
     // Start is called before the first frame update
     void Start()
     {
-        activable = false;
+        minijuego = null;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -35,9 +35,9 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(movePlayer + playerInput * speed * Time.deltaTime);
 
-        if (activable && Input.GetKey(KeyCode.P))
+        if (minijuego != null && Input.GetKey(KeyCode.E))
         {
-            SceneManager.LoadScene("PlaceHolder_Minijuego");
+            minijuego.LoadScene();
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,7 +46,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.transform.tag == "minijuego")
         {
-            activable = true;
+            minijuego = other.GetComponent<Minijuego>();
+            minijuego.ShowCanvas();
         }
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -54,7 +55,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("saliendo del trigger");
         if (other.transform.tag == "minijuego")
         {
-            activable = false;
+            minijuego.HideCanvas();
+            minijuego = null;
         }
     }
 }
