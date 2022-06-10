@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Lata : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField, Range(0f, 10f)] private int fuerza;
+    public static event Action diana;
+    public static event Action sueloTocado;
 
     private void Awake()
     {
@@ -14,8 +18,8 @@ public class Lata : MonoBehaviour
     private void OnMouseDown()
     {
         MueveLata();
+        diana?.Invoke();
     }
-
     private void MueveLata()
     {
         Vector2 direccion = transform.position - GetMousePos();
@@ -31,11 +35,14 @@ public class Lata : MonoBehaviour
         rb.AddForce(direccion.normalized * fuerza, ForceMode2D.Impulse);
         rb.AddTorque(fgiro);
     }
-
     private Vector3 GetMousePos()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         return mousePos;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Suelo") sueloTocado?.Invoke();
     }
 }
