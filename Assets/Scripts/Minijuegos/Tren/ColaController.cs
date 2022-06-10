@@ -17,7 +17,7 @@ public class ColaController : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            Debug.Log("Player Detectado");            
+            //Debug.Log("Player Detectado");            
 
             if (controlCorrutina)
             {
@@ -29,21 +29,21 @@ public class ColaController : MonoBehaviour
     }
     IEnumerator EscapaDelPlayer()
     {
-        tren.limVelocidad = 60f;
+        tren.limVelocidad = 20f;
         yield return new WaitForSeconds(5f);
 
         switch (vecesAlcanzado)
         {
             case 1:
-                tren.limVelocidad = 40f;
+                tren.limVelocidad = 10f;
                 break;
 
             case 2:
-                tren.limVelocidad = 45f;
+                tren.limVelocidad = 12f;
                 break;
 
             case 3:
-                tren.limVelocidad = 48f;
+                tren.limVelocidad = 14f;
                 break;
 
             default:

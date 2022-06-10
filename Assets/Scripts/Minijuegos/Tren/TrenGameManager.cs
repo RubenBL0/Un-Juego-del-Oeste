@@ -6,13 +6,13 @@ using System;
 
 public class TrenGameManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI t_puntos, t_timer, t_distancia;
-    [SerializeField, Tooltip("Tiempo en segundos")] private float timerTime;
+    [SerializeField] private TextMeshProUGUI t_puntos, t_timer, t_distancia;    
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject tren;
-    public static event Action tiempoAgotado;
+    public static event Action escapaTren, tiempoAlcanzado;
+    private float timerTime;
     private int puntos, sumaPuntos, n_aleatorio, minutos, segundos, centesimas;
-    private bool controlCorrutina, controlFinal;
+    private bool controlCorrutina, controlFinal, controlTiempo;
 
     private void OnEnable()
     {
@@ -29,6 +29,7 @@ public class TrenGameManager : MonoBehaviour
         puntos = 0;
         controlCorrutina = false;
         controlFinal = false;
+        controlTiempo = false;
         StartCoroutine(StartTimer());
     }
 
@@ -40,13 +41,18 @@ public class TrenGameManager : MonoBehaviour
         distancia = Vector2.Distance(player.transform.position, tren.transform.position);
         distancia = Mathf.Round(distancia / 2);
 
-        if (distancia <= 200) t_distancia.text = String.Format("{0:00} m", distancia);
+        if (distancia <= 150) t_distancia.text = String.Format("{0:00} m", distancia);
 
-        if (timerTime == 0 && !controlFinal)
+        if (distancia > 150 && !controlFinal)
         {
-            Debug.Log("tiempo agotado");
-            tiempoAgotado?.Invoke();
+            //Debug.Log("el tren se ha escapado");
+            escapaTren?.Invoke();
             controlFinal = true;
+        }
+        if (timerTime >= 60 && !controlTiempo)
+        {
+            tiempoAlcanzado?.Invoke();
+            controlTiempo = true;
         }
     }
     void EmpiezaASumar()
@@ -89,7 +95,7 @@ public class TrenGameManager : MonoBehaviour
     {
         while (true)
         {
-            timerTime -= Time.deltaTime;
+            timerTime += Time.deltaTime;
 
             if (timerTime < 0) timerTime = 0;
 
