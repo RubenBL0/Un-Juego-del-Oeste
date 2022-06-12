@@ -35,7 +35,7 @@ public class ColaController : MonoBehaviour
         switch (vecesAlcanzado)
         {
             case 1:
-                tren.limVelocidad = 10f;
+                tren.limVelocidad = 11f;
                 break;
 
             case 2:

@@ -49,7 +49,7 @@ public class TrenGameManager : MonoBehaviour
             escapaTren?.Invoke();
             controlFinal = true;
         }
-        if (timerTime >= 60 && !controlTiempo)
+        if (timerTime >= 90 && !controlTiempo)
         {
             tiempoAlcanzado?.Invoke();
             controlTiempo = true;

@@ -5,63 +5,58 @@ using UnityEngine;
 
 public class LatasGameManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI t_puntos, t_timer;
+    [SerializeField] private TextMeshProUGUI t_puntos;
     [SerializeField] private float timerTime;
-    private int minutos, segundos, centesimas, puntos;
+    [SerializeField] private Texture2D mira;
+    [SerializeField] private Vector2 cursorOffset;
+    [SerializeField] private CompruebaDisparo compruebaDisparo;
+    private int puntos, municion, latasAlcanzadas;
 
     private void OnEnable()
     {
-        Lata.diana += SumaPuntos;
+        Lata.diana += SumaLatasYPuntos;
         Lata.sueloTocado += GameOver;
+        CompruebaDisparo.comprobarDisparo += RestaMunicion;
     }
     private void OnDisable()
     {
-        Lata.diana -= SumaPuntos;
+        Lata.diana -= SumaLatasYPuntos;
         Lata.sueloTocado -= GameOver;
+        CompruebaDisparo.comprobarDisparo -= RestaMunicion;
     }
-    private void Start()
+    private void Awake()
     {
-        StartCoroutine(StartTimer());
+        Cursor.SetCursor(mira, cursorOffset, CursorMode.Auto);
+        municion = 5;
+        latasAlcanzadas = 0;
     }
     private void Update()
     {
         t_puntos.text = puntos.ToString();
 
-        if (timerTime == 0)
+        if (timerTime == 0 || municion == 0)
         {
-            Time.timeScale = 0;
+            GameOver();
         }
+        if (latasAlcanzadas == 3) RecargaMunicion();
+        Debug.Log(municion);
     }
-    void SumaPuntos()
+    void SumaLatasYPuntos()
     {
         puntos++;
+        latasAlcanzadas++;
+    }
+    void RestaMunicion()
+    {
+        municion--;
+    }
+    void RecargaMunicion()
+    {
+        municion = 5;
+        latasAlcanzadas = 0;
     }
     void GameOver()
     {
         Time.timeScale = 0;
-    }
-    IEnumerator StartTimer()
-    {
-        while (true)
-        {
-            timerTime -= Time.deltaTime;
-
-            if (timerTime < 0) timerTime = 0;
-
-            minutos = (int)(timerTime / 60f);
-            segundos = (int)(timerTime - minutos * 60f);
-            centesimas = (int)((timerTime - (int)timerTime) * 100f);
-
-            t_timer.text = string.Format("{0:00}:{1:00}:{2:00}", minutos, segundos, centesimas);
-
-            if (timerTime == 0)
-            {
-                //Time.timeScale = 0;
-                //Debug.Log("Tiempo parado");
-                break;
-            }
-
-            yield return null;
-        }
     }
 }

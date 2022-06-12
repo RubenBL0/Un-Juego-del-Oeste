@@ -1772,7 +1772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f78b618a22af446bdd6eeccb8ad13c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuerzaEmpuje: 1.5
+  fuerzaEmpuje: 1
   fuerzaSalto: 10
   groundLayer:
     serializedVersion: 2
