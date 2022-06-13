@@ -7,7 +7,9 @@ using Random = UnityEngine.Random;
 public class Lata : MonoBehaviour
 {
     private Rigidbody2D rb;
+
     [SerializeField, Range(0f, 10f)] private int fuerza;
+
     public static event Action diana;
     public static event Action sueloTocado;
 
