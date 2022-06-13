@@ -11,7 +11,6 @@ public class ControlCarrera : MonoBehaviour
     private bool controlTecla, trenEscapado;
     [SerializeField] private float fuerzaEmpuje, fuerzaSalto;
     [SerializeField] private LayerMask groundLayer;
-    //public GameObject prueba;
 
     private void OnEnable()
     {
@@ -33,7 +32,6 @@ public class ControlCarrera : MonoBehaviour
         MuevePlayer();
         ControlVelocidad();
         //Debug.Log(Vector2.Distance(transform.position, prueba.transform.position)); //distancia 6.7
-        //Debug.Log(rb.velocity.magnitude);
     }
 
     private void ControlVelocidad()
@@ -137,7 +135,7 @@ public class ControlCarrera : MonoBehaviour
                 fuerzaEmpuje = 0.6f;
                 break;
             }
-            yield return new WaitForSeconds(30f);
+            yield return new WaitForSeconds(45f);
         }
     }
 }

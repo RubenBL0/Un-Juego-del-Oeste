@@ -20,7 +20,7 @@ public class Limite : MonoBehaviour
     {
         if (collision.transform.tag == "obstaculo")
         {
-            float distObstaculo = Random.Range(25f, 75f);
+            float distObstaculo = Random.Range(15f, 30f);
 
             if (obstaculos[0] == null)
             {

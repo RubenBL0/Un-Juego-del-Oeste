@@ -13,6 +13,7 @@ TagManager:
   - Suelo
   - Caldero
   - obstaculo
+  - lata
   layers:
   - Default
   - TransparentFX

@@ -9,9 +9,11 @@ public class Vaquillas : MonoBehaviour
     public static event DelegateVaquilla establoEntrando;
     public static event DelegateVaquilla establoSaliendo;
 
-    [SerializeField]private Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private AudioSource sonidoVaca, sonidoCuerda, sonidoTirarCuerda;
     [SerializeField, Range(0f, 5f)] private float speed;
-    public lr_LineController linea;
+
+    public lr_LineController linea;    
 
     private float mh;
     private float mv;
@@ -34,6 +36,8 @@ public class Vaquillas : MonoBehaviour
         rb.angularVelocity = 0f;
         linea.lr.enabled = true;
         linea.lr_points[0] = gameObject.transform;
+        sonidoCuerda.Play();
+        sonidoTirarCuerda.Play();
     }
     public void Liberada()
     {
@@ -41,6 +45,8 @@ public class Vaquillas : MonoBehaviour
         linea.lr.enabled = false;
         linea.lr_points[0] = null;
         StartCoroutine(MueveVaquilla());
+        sonidoTirarCuerda.Stop();
+        if (Random.Range(0f, 1f) >= 0.5f) sonidoVaca.Play();
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -72,5 +78,5 @@ public class Vaquillas : MonoBehaviour
 
             yield return new WaitForSeconds(0.2f);
         }
-    }
+    }    
 }

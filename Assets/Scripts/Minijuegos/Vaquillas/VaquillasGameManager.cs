@@ -8,9 +8,9 @@ public class VaquillasGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI t_puntos;
     [SerializeField] private TextMeshProUGUI t_timer;
     [SerializeField] private GameObject vaquilla;
-    [SerializeField] private Collider2D suelo;
+    [SerializeField] private Collider2D[] spawnPos = new Collider2D[4];
     [SerializeField, Tooltip("Tiempo en segundos")] private float timerTime;
-    private int n_vacas, puntos, puntosAnteriores, minutos, segundos, centesimas;    
+    private int n_vacas, puntos, puntosAnteriores, minutos, segundos, centesimas, r_num;    
 
     private void OnEnable()
     {
@@ -28,12 +28,16 @@ public class VaquillasGameManager : MonoBehaviour
         puntosAnteriores = 0;
         StartCoroutine(SumaPuntos());
         StartCoroutine(StartTimer());
+        for (int i = 0; i <= 10; i++)
+        {
+            Instantiate(vaquilla, GetPosSpawn(), Quaternion.identity);
+        }
     }
     void Update()
     {
         t_puntos.text = puntos.ToString();
 
-        if (puntos > puntosAnteriores + 20)
+        if (puntos > puntosAnteriores + 30)
         {
             Instantiate(vaquilla, GetPosSpawn(), Quaternion.identity);
             ActualizaPuntosAnteriores();
@@ -42,9 +46,10 @@ public class VaquillasGameManager : MonoBehaviour
     Vector2 GetPosSpawn()
     {
         Vector2 vaquillaPos = Vector2.zero;
-        Bounds bounds = suelo.bounds;
-        vaquillaPos.x = Random.Range(bounds.min.x + 1, bounds.max.x - 1);
-        vaquillaPos.y = Random.Range(bounds.min.y + 1, bounds.max.y - 1);
+        r_num = Random.Range(0, 3);
+        Bounds bounds = spawnPos[r_num].bounds;
+        vaquillaPos.x = Random.Range(bounds.min.x, bounds.max.x);
+        vaquillaPos.y = Random.Range(bounds.min.y, bounds.max.y);
         return vaquillaPos;
     }
     void ActualizaPuntosAnteriores()

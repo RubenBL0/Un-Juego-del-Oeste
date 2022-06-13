@@ -11,7 +11,7 @@ public class TrainController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         fuerzaEmpuje = 1f;
-        limVelocidad = 9f;
+        limVelocidad = 10f;
     }
     private void Start()
     {
