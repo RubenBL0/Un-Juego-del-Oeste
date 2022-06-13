@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Minijuego : MonoBehaviour
 {
     [SerializeField] Object minigameScene;
-    [SerializeField] MinigameScore gameScore = MinigameScore.None;
-    [SerializeField] Canvas enterCanvas;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] MinigameScore gameScore = MinigameScore.None;
+
+    public MinijuegoTrigger trigger;
+
+    public static GameObject minigamesParent = null;
+
+    private void Awake()
     {
-        
+        if(minigamesParent == null)
+        {
+            DontDestroyOnLoad(this.transform.parent.gameObject);
+            minigamesParent = this.transform.parent.gameObject;
+        }
+        else if(minigamesParent != this.transform.parent.gameObject)
+        {
+            print("destruir");
+            Destroy(this.transform.parent.gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -20,28 +31,22 @@ public class Minijuego : MonoBehaviour
     {
         
     }
-
-    public void LoadScene()
-    {
-        SceneManager.LoadScene(minigameScene.name);
-    }
-
     public void SetMinigameScore(MinigameScore score)
     {
         this.gameScore = score;
     }
-
-    public void ShowCanvas()
+    public MinigameScore GetMinigameScore()
     {
-        enterCanvas.gameObject.SetActive(true);
+        return gameScore;
     }
 
-    public void HideCanvas()
+    public void StartMinigame()
     {
-        enterCanvas.gameObject.SetActive(false);
+        GameManager.instance.LoadScene(minigameScene);
+        GameManager.instance.SetCurrentMinigame(this);
     }
+
 }
-
 public enum MinigameScore
 {
     None, Bronze, Silver, Gold

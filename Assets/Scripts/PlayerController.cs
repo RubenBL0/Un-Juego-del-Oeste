@@ -6,19 +6,25 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    [SerializeField, Range(0f, 50f)] private float speed;
+    [SerializeField, Range(0f, 100f)] private float speed;
 
     private float mh;
     private float mv;
     
     private Vector2 playerInput;
 
-    private Minijuego minijuego;
+    private MinijuegoTrigger trigger;
 
     // Start is called before the first frame update
     void Start()
     {
-        minijuego = null;
+        print(GameManager.instance.playerTransform);
+        if(GameManager.instance.playerTransform != null)
+        {
+            print(GameManager.instance.playerTransform.position);
+            SetPosition(GameManager.instance.playerTransform);
+        }
+        trigger = null;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -35,9 +41,9 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(movePlayer + playerInput * speed * Time.deltaTime);
 
-        if (minijuego != null && Input.GetKey(KeyCode.E))
+        if (trigger != null && Input.GetKey(KeyCode.E))
         {
-            minijuego.LoadScene();
+            trigger.InfoCanvas();
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,8 +52,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.transform.tag == "minijuego")
         {
-            minijuego = other.GetComponent<Minijuego>();
-            minijuego.ShowCanvas();
+            trigger = other.GetComponent<MinijuegoTrigger>();
+            trigger.ShowCanvas();
         }
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -55,8 +61,16 @@ public class PlayerController : MonoBehaviour
         Debug.Log("saliendo del trigger");
         if (other.transform.tag == "minijuego")
         {
-            minijuego.HideCanvas();
-            minijuego = null;
+            trigger.HideCanvas();
+            trigger = null;
         }
+    }
+
+    public void SetPosition(Transform transf)
+    {
+        rb.isKinematic = true;
+        transform.position = transf.position;
+        transform.rotation = transf.rotation;
+        rb.isKinematic = false;
     }
 }
