@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Dificultad currentGameDifficulty;
     [SerializeField] Minijuego currentMinigame;
 
+    [SerializeField] Object overworld; //Mapa del pueblo
+
     public Transform playerTransform; //Para saber donde está el player al volver al overworld
 
     Object scene = null;
@@ -99,7 +101,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadOverworld()
     {
-        SceneManager.LoadScene("Overworld");
+        SceneManager.LoadScene(overworld.name);
     }
 
 }
