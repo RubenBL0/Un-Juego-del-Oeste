@@ -6,14 +6,24 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
+<<<<<<< Updated upstream
     [SerializeField, Range(0f, 100f)] private float speed;
+=======
+    [SerializeField, Range(0f, 5f)] private float speed;
+>>>>>>> Stashed changes
 
     private float mh;
     private float mv;
     
     private Vector2 playerInput;
 
+<<<<<<< Updated upstream
     private MinijuegoTrigger trigger;
+=======
+    private Animator playerAnimator;
+
+    private Minijuego minijuego;
+>>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
@@ -26,26 +36,38 @@ public class PlayerController : MonoBehaviour
         }
         trigger = null;
         rb = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        mh = Input.GetAxis("Horizontal");
-        mv = Input.GetAxis("Vertical");
+        mh = Input.GetAxisRaw("Horizontal");
+        mv = Input.GetAxisRaw("Vertical");
 
-        Vector2 movePlayer = rb.position;
-
-        playerInput = new Vector2(mh, mv);
-        playerInput = Vector2.ClampMagnitude(playerInput, 1);
-
-        rb.MovePosition(movePlayer + playerInput * speed * Time.deltaTime);
+        playerAnimator.SetFloat("Horizontal", mh);
+        playerAnimator.SetFloat("Vertical", mv);
+        playerAnimator.SetFloat("Speed", playerInput.sqrMagnitude);
 
         if (trigger != null && Input.GetKey(KeyCode.E))
         {
             trigger.InfoCanvas();
         }
     }
+    private void FixedUpdate()
+    {
+        MuevePlayer();
+    }
+
+    private void MuevePlayer()
+    {
+        Vector2 movePlayer = rb.position;
+
+        playerInput = new Vector2(mh, mv).normalized;
+
+        rb.MovePosition(movePlayer + playerInput * speed * Time.fixedDeltaTime);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("trigger detectado");
