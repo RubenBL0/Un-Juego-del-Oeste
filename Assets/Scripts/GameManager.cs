@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetCurrentDifficulty(Dificultad dif)
@@ -93,8 +93,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(Object scene)
     {
-        playerTransform = FindObjectOfType<PlayerController>().transform;
-        print(playerTransform.position);
+        //playerTransform = FindObjectOfType<PlayerController>().transform;
+        //print(playerTransform.position);
         this.scene = scene;
         SceneManager.LoadScene(scene.name);
     }

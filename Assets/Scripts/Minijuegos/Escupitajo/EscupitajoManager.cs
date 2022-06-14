@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class EscupitajoManager : MonoBehaviour
+public class EscupitajoManager : MinijuegoController
 {
     public static EscupitajoManager instance = null;
 
@@ -12,6 +12,7 @@ public class EscupitajoManager : MonoBehaviour
     Coroutine timeCoroutine = null;
 
     [SerializeField] int score = 0;
+    int scoreNeeded;
 
     [SerializeField] float gameTime = 30f;
     [SerializeField] TextMeshProUGUI txtTime;
@@ -32,7 +33,7 @@ public class EscupitajoManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetDifficulty();
     }
 
     // Update is called once per frame
@@ -90,5 +91,48 @@ public class EscupitajoManager : MonoBehaviour
         playing = false;
         barra.gameObject.SetActive(false);
         escupitajo.gameObject.SetActive(false);
+        if(score >= scoreNeeded)
+        {
+            GameManager.instance.OnWinGame();
+        }
+        else
+        {
+            GameManager.instance.OnLoseGame();
+        }
+    }
+
+
+    //Métodos de MinijuegoController
+    public void SetDifficulty()
+    {
+        switch (GameManager.instance.GetCurrentGameDifficulty())
+        {
+            case Dificultad.Facil:
+                DifficultyEasy();
+                break;
+            case Dificultad.Medio:
+                DifficultyMedium();
+                break;
+            case Dificultad.Dificil:
+                DifficultyHard();
+                break;
+        }
+    }
+    public override void DifficultyEasy()
+    {
+        base.DifficultyEasy();
+        scoreNeeded = 5;
+    }
+
+    public override void DifficultyMedium()
+    {
+        base.DifficultyMedium();
+        scoreNeeded = 10;
+    }
+
+    public override void DifficultyHard()
+    {
+        base.DifficultyHard();
+        scoreNeeded = 15;
     }
 }

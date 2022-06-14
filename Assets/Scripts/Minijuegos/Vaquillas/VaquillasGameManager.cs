@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class VaquillasGameManager : MonoBehaviour
+public class VaquillasGameManager : MinijuegoController
 {
     [SerializeField] private TextMeshProUGUI t_puntos;
     [SerializeField] private TextMeshProUGUI t_timer;
     [SerializeField] private GameObject vaquilla;
     [SerializeField] private Collider2D[] spawnPos = new Collider2D[4];
     [SerializeField, Tooltip("Tiempo en segundos")] private float timerTime;
-    private int n_vacas, puntos, puntosAnteriores, minutos, segundos, centesimas, r_num;    
+    private int n_vacas, puntos, puntosAnteriores, minutos, segundos, centesimas, r_num, puntosNecesarios;    
 
     private void OnEnable()
     {
@@ -24,6 +24,7 @@ public class VaquillasGameManager : MonoBehaviour
     }
     void Start()
     {
+        SetDifficulty();
         puntos = 0;
         puntosAnteriores = 0;
         StartCoroutine(SumaPuntos());
@@ -88,12 +89,57 @@ public class VaquillasGameManager : MonoBehaviour
 
             if (timerTime == 0) 
             {
-                Time.timeScale = 0;
-                Debug.Log("Tiempo parado");
+                CheckGameState();
                 break;
             }
 
             yield return null;
         }
+    }
+
+    private void CheckGameState()
+    {
+        if(puntos >= puntosNecesarios)
+        {
+            GameManager.instance.OnWinGame();
+        }
+        else
+        {
+            GameManager.instance.OnLoseGame();
+        }
+    }
+
+    //Métodos de MinijuegoController
+    public void SetDifficulty()
+    {
+        switch (GameManager.instance.GetCurrentGameDifficulty())
+        {
+            case Dificultad.Facil:
+                DifficultyEasy();
+                break;
+            case Dificultad.Medio:
+                DifficultyMedium();
+                break;
+            case Dificultad.Dificil:
+                DifficultyHard();
+                break;
+        }
+    }
+    public override void DifficultyEasy()
+    {
+        base.DifficultyEasy();
+        puntosNecesarios = 50;
+    }
+
+    public override void DifficultyMedium()
+    {
+        base.DifficultyMedium();
+        puntosNecesarios= 150;
+    }
+
+    public override void DifficultyHard()
+    {
+        base.DifficultyHard();
+        puntosNecesarios = 300;
     }
 }

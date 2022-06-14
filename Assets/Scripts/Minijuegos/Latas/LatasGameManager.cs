@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LatasGameManager : MonoBehaviour
+public class LatasGameManager : MinijuegoController
 {
     [SerializeField] private TextMeshProUGUI t_puntos;
     [SerializeField] private Texture2D mira;
@@ -12,7 +12,7 @@ public class LatasGameManager : MonoBehaviour
     [SerializeField] private Image[] im_municion = new Image[5];
     [SerializeField] private GameObject lata;
 
-    private int puntos,targetPuntos, municion, latasAlcanzadas, latasParaRecargar;
+    private int puntos, targetPuntos, municion, latasAlcanzadas, latasParaRecargar;
 
     private Vector2 posInstLata;
 
@@ -34,7 +34,7 @@ public class LatasGameManager : MonoBehaviour
         municion = 5;
         latasAlcanzadas = 0;
         latasParaRecargar = 10;
-        targetPuntos = 30;
+        SetDifficulty();
     }
     private void Update()
     {
@@ -122,6 +122,47 @@ public class LatasGameManager : MonoBehaviour
     }
     void GameOver()
     {
-        Time.timeScale = 0;
+        if(puntos >= targetPuntos)
+        {
+            GameManager.instance.OnWinGame();
+        }
+        else
+        {
+            GameManager.instance.OnLoseGame();
+        }
+    }
+
+    //Métodos de MinijuegoController
+    public void SetDifficulty()
+    {
+        switch (GameManager.instance.GetCurrentGameDifficulty())
+        {
+            case Dificultad.Facil:
+                DifficultyEasy();
+                break;
+            case Dificultad.Medio:
+                DifficultyMedium();
+                break;
+            case Dificultad.Dificil:
+                DifficultyHard();
+                break;
+        }
+    }
+    public override void DifficultyEasy()
+    {
+        base.DifficultyEasy();
+        targetPuntos = 15;
+    }
+
+    public override void DifficultyMedium()
+    {
+        base.DifficultyMedium();
+        targetPuntos = 50;
+    }
+
+    public override void DifficultyHard()
+    {
+        base.DifficultyHard();
+        targetPuntos = 100;
     }
 }
