@@ -6,24 +6,19 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-<<<<<<< Updated upstream
     [SerializeField, Range(0f, 100f)] private float speed;
-=======
-    [SerializeField, Range(0f, 5f)] private float speed;
->>>>>>> Stashed changes
 
     private float mh;
     private float mv;
     
     private Vector2 playerInput;
 
-<<<<<<< Updated upstream
+
     private MinijuegoTrigger trigger;
-=======
+
     private Animator playerAnimator;
 
     private Minijuego minijuego;
->>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
