@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DueloManager : MonoBehaviour
+public class DueloManager : MinijuegoController
 {
     bool gameStarted = true;
     Coroutine gameCoroutine = null;
@@ -36,9 +36,44 @@ public class DueloManager : MonoBehaviour
     [SerializeField] GameObject[] enemyHearts = new GameObject[3];
     [SerializeField] Sprite emptyHeartSprite;
 
+    //Métodos de MinijuegoController
+    public void SetDifficulty()
+    {
+        switch (GameManager.instance.GetCurrentGameDifficulty())
+        {
+            case Dificultad.Facil:
+                DifficultyEasy();
+                break;
+            case Dificultad.Medio:
+                DifficultyMedium();
+                break;
+            case Dificultad.Dificil:
+                DifficultyHard();
+                break;
+        }
+    }
+    public override void DifficultyEasy()
+    {
+        base.DifficultyEasy();
+        fireTime = 2f;
+    }
+
+    public override void DifficultyMedium()
+    {
+        base.DifficultyMedium();
+        fireTime = 1f;
+    }
+
+    public override void DifficultyHard()
+    {
+        base.DifficultyHard();
+        fireTime = 0.5f;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        SetDifficulty();
         canvasFire.gameObject.SetActive(false);
         duelTime = GetDuelTime();
 
@@ -198,11 +233,13 @@ public class DueloManager : MonoBehaviour
     void LoseGame()
     {
         print("Has perdido...");
+        GameManager.instance.OnLoseGame();
     }
 
     void WinGame()
     {
         print("¡Has ganado!");
+        GameManager.instance.OnWinGame();
     }
 
     void Restart()
@@ -230,4 +267,5 @@ public class DueloManager : MonoBehaviour
 
         gameCoroutine = StartCoroutine(TimeCoroutine());
     }
+
 }
