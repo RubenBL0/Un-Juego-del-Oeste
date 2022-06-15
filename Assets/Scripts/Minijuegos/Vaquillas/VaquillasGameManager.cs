@@ -7,7 +7,9 @@ public class VaquillasGameManager : MinijuegoController
 {
     [SerializeField] private TextMeshProUGUI t_puntos;
     [SerializeField] private TextMeshProUGUI t_timer;
-    [SerializeField] private GameObject vaquilla;
+    [SerializeField] private GameObject[] vaquilla = new GameObject[2];
+    [SerializeField] private GameObject sceneLoadManager;
+    [SerializeField] private Animator fadeAnimator;
     [SerializeField] private Collider2D[] spawnPos = new Collider2D[4];
     [SerializeField, Tooltip("Tiempo en segundos")] private float timerTime;
     private int n_vacas, puntos, puntosAnteriores, minutos, segundos, centesimas, r_num, puntosNecesarios;    
@@ -31,7 +33,8 @@ public class VaquillasGameManager : MinijuegoController
         StartCoroutine(StartTimer());
         for (int i = 0; i <= 10; i++)
         {
-            Instantiate(vaquilla, GetPosSpawn(), Quaternion.identity);
+            int num = Random.Range(0, 2);
+            Instantiate(vaquilla[num], GetPosSpawn(), Quaternion.identity);
         }
     }
     void Update()
@@ -40,7 +43,8 @@ public class VaquillasGameManager : MinijuegoController
 
         if (puntos > puntosAnteriores + 30)
         {
-            Instantiate(vaquilla, GetPosSpawn(), Quaternion.identity);
+            int num = Random.Range(0, 1);
+            Instantiate(vaquilla[num], GetPosSpawn(), Quaternion.identity);
             ActualizaPuntosAnteriores();
         }
     }
@@ -101,12 +105,30 @@ public class VaquillasGameManager : MinijuegoController
     {
         if(puntos >= puntosNecesarios)
         {
-            GameManager.instance.OnWinGame();
+            LanzaTransicion();
+            Invoke("OnWinGame", 1f);
         }
         else
         {
-            GameManager.instance.OnLoseGame();
+            LanzaTransicion();
+            Invoke("OnLoseGame", 1f);
         }
+    }
+
+    void LanzaTransicion()
+    {
+        sceneLoadManager.SetActive(true);
+        fadeAnimator.SetTrigger("StartTransition");
+    }
+
+    private void OnWinGame()
+    {
+        GameManager.instance.OnWinGame();
+    }
+
+    private void OnLoseGame()
+    {
+        GameManager.instance.OnLoseGame();
     }
 
     //Métodos de MinijuegoController
@@ -114,7 +136,7 @@ public class VaquillasGameManager : MinijuegoController
     {
         switch (GameManager.instance.GetCurrentGameDifficulty())
         {
-            case Dificultad.Facil:
+            case Dificultad.Facil:            
                 DifficultyEasy();
                 break;
             case Dificultad.Medio:
@@ -122,6 +144,9 @@ public class VaquillasGameManager : MinijuegoController
                 break;
             case Dificultad.Dificil:
                 DifficultyHard();
+                break;
+            default:
+                Debug.Log("No hay dificultad");
                 break;
         }
     }

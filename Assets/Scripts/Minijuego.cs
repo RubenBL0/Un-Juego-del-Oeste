@@ -44,7 +44,7 @@ public class Minijuego : MonoBehaviour
     {
         //GameManager.instance.StartTransition();
         //Invoke("LoadMinigame", 1f);
-        GameManager.instance.LoadScene(minigameScene);
+        Invoke("LoadMinigame", 1f);
         GameManager.instance.SetCurrentMinigame(this);
     }
 

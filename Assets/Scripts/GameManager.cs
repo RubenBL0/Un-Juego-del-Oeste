@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Object overworld; //Mapa del pueblo
 
     [SerializeField] private Animator sceneAnimator;
+    [SerializeField] private GameObject sceneLoadManager;
 
     public Transform playerTransform; //Para saber donde está el player al volver al overworld
 
@@ -103,6 +104,7 @@ public class GameManager : MonoBehaviour
 
     public void StartTransition() 
     {
+        sceneLoadManager.SetActive(true);
         sceneAnimator.SetTrigger("StartTransition");
     }
 

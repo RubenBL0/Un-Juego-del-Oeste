@@ -22,6 +22,9 @@ public class EscupitajoManager : MinijuegoController
     [SerializeField] PowerBar barra;
     [SerializeField] GameObject caldero;
 
+    [SerializeField] private GameObject sceneLoadManager;
+    [SerializeField] private Animator fadeAnimator;
+
     private void Awake()
     {
         if(instance == null)
@@ -91,16 +94,32 @@ public class EscupitajoManager : MinijuegoController
         playing = false;
         barra.gameObject.SetActive(false);
         escupitajo.gameObject.SetActive(false);
-        if(score >= scoreNeeded)
+        if (score >= scoreNeeded)
         {
-            GameManager.instance.OnWinGame();
+            LanzaTransicion();
+            Invoke("OnWinGame", 1f);
         }
         else
         {
-            GameManager.instance.OnLoseGame();
+            LanzaTransicion();
+            Invoke("OnLoseGame", 1f);
         }
     }
 
+    void LanzaTransicion()
+    {
+        sceneLoadManager.SetActive(true);
+        fadeAnimator.SetTrigger("StartTransition");
+    }
+    private void OnWinGame()
+    {
+        GameManager.instance.OnWinGame();
+    }
+
+    private void OnLoseGame()
+    {
+        GameManager.instance.OnLoseGame();
+    }
 
     //Métodos de MinijuegoController
     public void SetDifficulty()

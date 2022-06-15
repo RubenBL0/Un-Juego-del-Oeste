@@ -23,6 +23,9 @@ public class DueloManager : MinijuegoController
     [SerializeField] Canvas canvasFire;
     [SerializeField] TextMeshProUGUI txtKey;
 
+    [SerializeField] private GameObject sceneLoadManager;
+    [SerializeField] private Animator fadeAnimator;
+
     //Animators
     Animator playerAnim;
     Animator enemyAnim;
@@ -233,13 +236,29 @@ public class DueloManager : MinijuegoController
     void LoseGame()
     {
         print("Has perdido...");
-        GameManager.instance.OnLoseGame();
+        LanzaTransicion();
+        Invoke("OnLoseGame", 1f);
     }
 
     void WinGame()
     {
         print("¡Has ganado!");
+        LanzaTransicion();
+        Invoke("OnWinGame", 1f);
+    }
+    void LanzaTransicion()
+    {
+        sceneLoadManager.SetActive(true);
+        fadeAnimator.SetTrigger("StartTransition");
+    }
+    private void OnWinGame()
+    {
         GameManager.instance.OnWinGame();
+    }
+
+    private void OnLoseGame()
+    {
+        GameManager.instance.OnLoseGame();
     }
 
     void Restart()

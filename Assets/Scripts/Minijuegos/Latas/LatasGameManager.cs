@@ -11,6 +11,8 @@ public class LatasGameManager : MinijuegoController
     [SerializeField] private Vector2 cursorOffset;
     [SerializeField] private Image[] im_municion = new Image[5];
     [SerializeField] private GameObject lata;
+    [SerializeField] private GameObject sceneLoadManager;
+    [SerializeField] private Animator fadeAnimator;
 
     private int puntos, targetPuntos, municion, latasAlcanzadas, latasParaRecargar;
 
@@ -122,14 +124,30 @@ public class LatasGameManager : MinijuegoController
     }
     void GameOver()
     {
-        if(puntos >= targetPuntos)
+        if (puntos >= targetPuntos)
         {
-            GameManager.instance.OnWinGame();
+            LanzaTransicion();
+            Invoke("OnWinGame", 1f);
         }
         else
         {
-            GameManager.instance.OnLoseGame();
+            LanzaTransicion();
+            Invoke("OnLoseGame", 1f);
         }
+    }
+    void LanzaTransicion()
+    {
+        sceneLoadManager.SetActive(true);
+        fadeAnimator.SetTrigger("StartTransition");
+    }
+    private void OnWinGame()
+    {
+        GameManager.instance.OnWinGame();
+    }
+
+    private void OnLoseGame()
+    {
+        GameManager.instance.OnLoseGame();
     }
 
     //Métodos de MinijuegoController

@@ -125,14 +125,17 @@ public class MinijuegoTrigger : MonoBehaviour
         {
             case "facil":
                 GameManager.instance.SetCurrentDifficulty(Dificultad.Facil);
+                GameManager.instance.StartTransition();
                 minigame.StartMinigame();
                 break;
             case "medio":
                 GameManager.instance.SetCurrentDifficulty(Dificultad.Medio);
+                GameManager.instance.StartTransition();
                 minigame.StartMinigame();
                 break;
             case "dificil":
                 GameManager.instance.SetCurrentDifficulty(Dificultad.Dificil);
+                GameManager.instance.StartTransition();
                 minigame.StartMinigame();
                 break;
             default:
