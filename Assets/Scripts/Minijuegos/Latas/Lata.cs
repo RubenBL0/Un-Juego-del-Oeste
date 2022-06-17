@@ -10,6 +10,7 @@ public class Lata : MonoBehaviour
 
     [SerializeField, Range(0f, 10f)] private int fuerza;
     [SerializeField] private Sprite altSprite;
+    [SerializeField] private GameObject animDisparo;
 
     public static event Action diana;
     public static event Action sueloTocado;
@@ -23,6 +24,7 @@ public class Lata : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        Instantiate(animDisparo, GetMousePos(), Quaternion.identity);
         cuentaLatas++;
         ActualizaSprite(altSprite);
         MueveLata();

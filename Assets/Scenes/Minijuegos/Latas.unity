@@ -582,7 +582,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.2
+  orthographic size: 4.92
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1598,5 +1598,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lata
       objectReference: {fileID: 0}
+    - target: {fileID: 2734356889070477847, guid: a0ad37703d5e04d40942bf8241172ebe, type: 3}
+      propertyPath: animDisparo
+      value: 
+      objectReference: {fileID: 6283594080516333967, guid: 8a9f09bee4e1edd4a841eb4d07454d09, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ad37703d5e04d40942bf8241172ebe, type: 3}

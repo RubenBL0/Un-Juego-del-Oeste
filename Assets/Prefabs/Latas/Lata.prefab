@@ -148,3 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuerza: 9
   altSprite: {fileID: 21300000, guid: 214d977d757d795459c664f37fd6d05e, type: 3}
+  animDisparo: {fileID: 6283594080516333967, guid: 8a9f09bee4e1edd4a841eb4d07454d09, type: 3}
