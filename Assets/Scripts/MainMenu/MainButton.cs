@@ -1,38 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class MainButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MainButton : MonoBehaviour
 {
-    [SerializeField] Color colorHover;
-    [SerializeField] Color colorExit;
-
-    TextMeshProUGUI txt;
-    // Start is called before the first frame update
-    void Start()
-    {
-        txt = GetComponentInChildren<TextMeshProUGUI>();
-        colorExit = txt.color;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        txt.color = colorHover;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        txt.color = colorExit;
-    }
-
     public void OnClickPlay()
     {
         MainMenuManager.instance.ShowFilesCanvas();

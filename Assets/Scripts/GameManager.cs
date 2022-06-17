@@ -15,9 +15,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Animator sceneAnimator;
     [SerializeField] private GameObject sceneLoadManager;
+    
     [SerializeField] PlayerController player;
 
-    public Transform playerTransform; //Para saber donde está el player al volver al overworld
+    public Canvas pauseMenu;
+    public Canvas pauseMinigame;
+
+    public bool isPaused = false;
 
     Object scene = null;
     private void Awake()
@@ -43,7 +47,14 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ReturnToMainMenu();
+            if (isPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
         }
     }
 
@@ -130,14 +141,18 @@ public class GameManager : MonoBehaviour
 
     public void LoadOverworld()
     {
-        ActivatePlayer(true);
+        currentMinigame = null;
         SceneManager.LoadScene(overworld.name);
         PlayerController.instance.transform.position = DataManager.instance.GetPosition();
+        ActivatePlayer(true);
     }
 
     public void ReturnToMainMenu()
     {
-        DataManager.instance.SavePosition(FindObjectOfType<PlayerController>().transform.position);
+        if (PlayerController.instance.gameObject.activeSelf)
+        {
+            DataManager.instance.SavePosition(PlayerController.instance.transform.position);
+        }
         DataManager.instance.SaveData();
         Destroy(FindObjectOfType<Minijuego>().transform.parent.gameObject);
         Destroy(FindObjectOfType<MinijuegoTrigger>().transform.parent.gameObject);
@@ -147,5 +162,28 @@ public class GameManager : MonoBehaviour
     public void ActivatePlayer(bool status)
     {
         PlayerController.instance.gameObject.SetActive(status);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        if(currentMinigame == null) //En el pueblo
+        {
+            pauseMenu.gameObject.SetActive(true);
+        }
+        else
+        {
+            pauseMinigame.gameObject.SetActive(true);
+        }
+        isPaused = true;
+    }
+    
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        pauseMenu.gameObject.SetActive(false);
+        pauseMinigame.gameObject.SetActive(false);
+
+        isPaused = false;
     }
 }
