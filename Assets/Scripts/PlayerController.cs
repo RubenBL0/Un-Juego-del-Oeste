@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     private Rigidbody2D rb;
     [SerializeField, Range(1f, 10f)] private int speed;
 
@@ -20,15 +22,22 @@ public class PlayerController : MonoBehaviour
 
     private Minijuego minijuego;
 
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        print(GameManager.instance.playerTransform);
-        if(GameManager.instance.playerTransform != null)
-        {
-            print(GameManager.instance.playerTransform.position);
-            SetPosition(GameManager.instance.playerTransform);
-        }
         trigger = null;
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
@@ -78,8 +87,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("saliendo del trigger");
         if (other.transform.tag == "minijuego")
         {
-            trigger.HideCanvas();
-            trigger = null;
+            if (trigger != null)
+            {
+                trigger.HideCanvas();
+                trigger = null;
+            }
         }
     }
 

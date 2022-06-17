@@ -6,6 +6,7 @@ public class Minijuego : MonoBehaviour
 {
     [SerializeField] Object minigameScene;
 
+    [SerializeField] MinigameNames name;
     [SerializeField] MinigameScore gameScore = MinigameScore.None;
 
     public MinijuegoTrigger trigger;
@@ -26,6 +27,10 @@ public class Minijuego : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        gameScore = DataManager.instance.GetMinigameScore(name);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -45,7 +50,7 @@ public class Minijuego : MonoBehaviour
         //GameManager.instance.StartTransition();
         //Invoke("LoadMinigame", 1f);
         Invoke("LoadMinigame", 1f);
-        GameManager.instance.SetCurrentMinigame(this);
+        GameManager.instance.SetCurrentMinigame(this, name);
     }
 
     void LoadMinigame()
@@ -57,4 +62,8 @@ public class Minijuego : MonoBehaviour
 public enum MinigameScore
 {
     None, Bronze, Silver, Gold
+}
+public enum MinigameNames
+{
+    Vacas, Duelo, Latas, Pelea, Escupitajo, Tren
 }
