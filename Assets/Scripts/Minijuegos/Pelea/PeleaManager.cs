@@ -6,11 +6,12 @@ using System;
 
 public class PeleaManager : MonoBehaviour
 {
-    [SerializeField] private GameObject player, enemigo;
+    [SerializeField] private GameObject player, enemigo, botella;
     [SerializeField] private TextMeshProUGUI t_temporizador;
     [SerializeField, Tooltip("Tiempo en segundos")] private float timerTime;
     [SerializeField] private Transform[] spawnZones = new Transform[3];
     [SerializeField] private int n_enemigos;
+    [SerializeField] private Collider2D barraBar;
 
     public static event Action instanciaEnemigos;
 
@@ -49,6 +50,12 @@ public class PeleaManager : MonoBehaviour
     {
         if(timerTime != 0)
         {
+            Vector3 posBotella = Vector3.zero;
+            Bounds bounds = barraBar.bounds;
+            posBotella.x = UnityEngine.Random.Range(bounds.min.x, bounds.max.x);
+            posBotella.y = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
+            posBotella.z = 0;
+            Instantiate(botella, posBotella, Quaternion.identity);
             StartCoroutine(InstanciaEnemigos(tamanoOleada));
             tamanoOleada += 2;
         }        

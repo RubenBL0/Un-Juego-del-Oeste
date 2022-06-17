@@ -16,3 +16,4 @@ MonoBehaviour:
   speed: 2
   dano: 1
   frecuenciaAtaque: 2.5
+  probRage: 0.2

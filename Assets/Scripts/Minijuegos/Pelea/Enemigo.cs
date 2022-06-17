@@ -8,16 +8,15 @@ public class Enemigo : MonoBehaviour
     [SerializeField] private DatosEnemigo datosEnemigo;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject player;
+    [SerializeField] private EnemigoGolpe controlGolpe;
 
     public static event Action sumaEnemigos;
     public static event Action restaEnemigos;
 
     private int vida;
     private float speed;
-    private int dano;
-    private float frecuenciaAtaque;
-
-    private bool controlAtaque;
+    private float probRage;
+    private bool rage;
 
     Vector2 playerDir;
     
@@ -35,12 +34,16 @@ public class Enemigo : MonoBehaviour
     private void Awake()
     {
         vida = datosEnemigo.Vida;
-        speed = datosEnemigo.Speed;
-        dano = datosEnemigo.Dano;
-        controlAtaque = false;
-        frecuenciaAtaque = datosEnemigo.FrecuenciaAtaque;
+        speed = datosEnemigo.Speed;  
+        probRage = datosEnemigo.ProbRage;
         rb = GetComponent<Rigidbody2D>();
         sumaEnemigos?.Invoke();
+        rage = false;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(Rage(probRage));
     }
 
     void Update()
@@ -50,14 +53,21 @@ public class Enemigo : MonoBehaviour
 
         if (vida <= 0)
         {
-            restaEnemigos?.Invoke();
-            Destroy(this.gameObject);
+            Muerte();
         }
     }
+
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + playerDir.normalized * speed * Time.fixedDeltaTime);
     }
+
+    public void Muerte()
+    {
+        restaEnemigos?.Invoke();
+        Destroy(this.gameObject);
+    }
+
     void GetPlayer(GameObject go)
     {
         player = go;
@@ -66,24 +76,19 @@ public class Enemigo : MonoBehaviour
     {
         vida -= a;
         Debug.Log(vida);
-    }
-    void Ataca()
+    }  
+    
+    IEnumerator Rage(float probRage)
     {
-        player.transform.GetComponent<Player>().RestaVida(dano);
-        controlAtaque = true;
-        StartCoroutine(DelayEntreAtaques());
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
+        while (!rage)
         {
-            if (!controlAtaque) Ataca();
+            if (UnityEngine.Random.Range(0f, 1f) <= probRage) rage = true;
+            yield return new WaitForSeconds(5f);
         }
-    }
-
-    IEnumerator DelayEntreAtaques()
-    {
-        yield return new WaitForSeconds(frecuenciaAtaque);
-        controlAtaque = false;
+        speed += 1f;
+        controlGolpe.dano += 1;
+        controlGolpe.frecuenciaAtaque -= 0.5f;
+        vida += player.GetComponent<Player>().GetDano();
+        GetComponent<SpriteRenderer>().color = Color.red;
     }
 }

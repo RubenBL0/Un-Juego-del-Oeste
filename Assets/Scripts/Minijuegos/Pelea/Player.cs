@@ -10,17 +10,21 @@ public class Player : MonoBehaviour
     [SerializeField] private float vidaMax;
     [SerializeField] private int dano;
     [SerializeField, Range(0f, 10f)] private float speed;
+    [SerializeField, Range(0f, 10f)] private int fuerzaLanzamieto;
     [SerializeField] private float lerpDuration;
-    [SerializeField] private LayerMask enemigoLayer;
+    [SerializeField] private LayerMask enemigoLayer, recogibleLayer;
     [SerializeField] private AnimationCurve curve;
     [Space(20f)]
 
     [SerializeField] private float vida;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rbBotella;
     [SerializeField] private Image barraVida;
+    [SerializeField] private Transform posBotella;
 
     private float vh;
     private float vv;
+    private bool recogible;
     
     private Vector2 playerInput;
 
@@ -43,6 +47,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         vida = vidaMax;
+        recogible = false;
     }
 
     // Update is called once per frame
@@ -52,9 +57,10 @@ public class Player : MonoBehaviour
         vv = Input.GetAxisRaw("Vertical");
         playerInput = new Vector2(vh, vv).normalized;
         CompruebaMirada();
-        AtacaPlayer();
+        LanzaBotella();
+        RaycastPlayer();        
 
-        if (barraVida.fillAmount <= 0)
+        if (vida <= 0)
         {
             muerte?.Invoke();
         }
@@ -71,7 +77,7 @@ public class Player : MonoBehaviour
         StartCoroutine(LerpBarraVida(currentFillAmount, (vida / vidaMax), lerpDuration));
     }
 
-    private void AtacaPlayer()
+    private void RaycastPlayer()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -81,6 +87,31 @@ public class Player : MonoBehaviour
             {
                 hit.transform.GetComponent<Enemigo>().RestaVida(dano);
             }
+        }
+        if (Input.GetKeyDown(KeyCode.O) && !recogible)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 2f, recogibleLayer);
+
+            if (hit.collider != null)
+            {
+                rbBotella = hit.transform.GetComponent<Rigidbody2D>();
+                rbBotella.simulated = false;
+                hit.transform.SetParent(posBotella);
+                hit.transform.localPosition = Vector3.zero;
+                hit.transform.localRotation = Quaternion.identity;
+                recogible = true;
+            }
+        }
+    }
+
+    void LanzaBotella()
+    {
+        if (Input.GetKeyDown(KeyCode.O) && recogible)
+        {
+            rbBotella.transform.SetParent(null);
+            rbBotella.simulated = true;
+            rbBotella.AddForce(transform.right * fuerzaLanzamieto, ForceMode2D.Impulse);
+            recogible = false;
         }
     }
 
@@ -92,6 +123,11 @@ public class Player : MonoBehaviour
     void RetornaPlayer()
     {
         retornaPlayer?.Invoke(this.gameObject);
+    }
+
+    public int GetDano()
+    {
+        return dano;
     }
 
     public void RestaVida(int a)

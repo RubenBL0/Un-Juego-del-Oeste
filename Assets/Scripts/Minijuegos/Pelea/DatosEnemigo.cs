@@ -9,9 +9,11 @@ public class DatosEnemigo : ScriptableObject
     [SerializeField] private float speed;
     [SerializeField] private int dano;
     [SerializeField] private float frecuenciaAtaque;
+    [SerializeField] private float probRage;
 
     public int Vida { get { return vida; }}
     public int Dano { get { return dano; }}
     public float FrecuenciaAtaque { get {return frecuenciaAtaque; }}
     public float Speed { get { return speed; }}
+    public float ProbRage { get { return probRage; }}
 }
