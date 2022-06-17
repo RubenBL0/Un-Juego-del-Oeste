@@ -9,18 +9,31 @@ public class Lata : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField, Range(0f, 10f)] private int fuerza;
+    [SerializeField] private Sprite altSprite;
 
     public static event Action diana;
     public static event Action sueloTocado;
 
+    private int cuentaLatas;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        cuentaLatas = 0;
     }
     private void OnMouseDown()
     {
+        cuentaLatas++;
+        ActualizaSprite(altSprite);
         MueveLata();
         diana?.Invoke();
+    }
+    void ActualizaSprite(Sprite alsprite)
+    {
+        if(cuentaLatas > 3)
+        {
+            GetComponent<SpriteRenderer>().sprite = alsprite;
+        }
     }
     private void MueveLata()
     {
