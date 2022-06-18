@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,10 +21,16 @@ public class GameManager : MonoBehaviour
 
     public Canvas pauseMenu;
     public Canvas pauseMinigame;
+    public Canvas optionsMenu;
+    private Canvas lastCanvas;
 
-    public bool isPaused = false;
+    private bool isPaused = false;
+    private bool isOptionsMenuShown = false;
+    public bool isMinigameCanvasShown = false;
 
     AudioSource musicaPueblo;
+
+    public Slider volumeSlider;
 
     Object scene = null;
     private void Awake()
@@ -38,9 +45,11 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
     // Start is called before the first frame update
     void Start()
     {
+        volumeSlider.value = DataManager.instance.Volume() * 100;
         FindObjectOfType<PlayerController>().transform.position = DataManager.instance.GetPosition();
         musicaPueblo = GetComponent<AudioSource>();
         PlayMusic();
@@ -51,9 +60,20 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (isMinigameCanvasShown)
             {
-                ResumeGame();
+                PlayerController.instance.trigger.HideInfoCanvas();
+            }
+            else if (isPaused)
+            {
+                if (isOptionsMenuShown)
+                {
+                    HideOptionsMenu();
+                }
+                else
+                {
+                    ResumeGame();
+                }
             }
             else
             {
@@ -188,10 +208,12 @@ public class GameManager : MonoBehaviour
         if(currentMinigame == null) //En el pueblo
         {
             pauseMenu.gameObject.SetActive(true);
+            lastCanvas = pauseMenu;
         }
         else
         {
             pauseMinigame.gameObject.SetActive(true);
+            lastCanvas = pauseMinigame;
         }
         isPaused = true;
     }
@@ -203,5 +225,29 @@ public class GameManager : MonoBehaviour
         pauseMinigame.gameObject.SetActive(false);
 
         isPaused = false;
+    }
+
+    public void OnVolumeChange()
+    {
+        int volume = (int)volumeSlider.value;
+        DataManager.instance.SetVolume(volume);
+        foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
+        {
+            audio.volume = DataManager.instance.Volume();
+        }
+    }
+
+    public void ShowOptionsMenu()
+    {
+        lastCanvas.gameObject.SetActive(false);
+        optionsMenu.gameObject.SetActive(true);
+        isOptionsMenuShown = true;
+    }
+
+    public void HideOptionsMenu()
+    {
+        optionsMenu.gameObject.SetActive(false);
+        lastCanvas.gameObject.SetActive(true);
+        isOptionsMenuShown = false;
     }
 }

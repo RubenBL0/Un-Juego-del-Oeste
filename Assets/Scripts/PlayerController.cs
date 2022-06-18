@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 playerInput;
 
 
-    private MinijuegoTrigger trigger;
+    public MinijuegoTrigger trigger;
 
     private Animator playerAnimator;
 

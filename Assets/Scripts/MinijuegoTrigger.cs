@@ -59,6 +59,8 @@ public class MinijuegoTrigger : MonoBehaviour
 
     public void InfoCanvas()
     {
+        Time.timeScale = 0f;
+        GameManager.instance.isMinigameCanvasShown = true;
         infoCanvas.worldCamera = Camera.main;
         infoCanvas.gameObject.SetActive(true);
         ActivateButtons();
@@ -66,6 +68,8 @@ public class MinijuegoTrigger : MonoBehaviour
     
     public void HideInfoCanvas()
     {
+        Time.timeScale = 1f;
+        GameManager.instance.isMinigameCanvasShown = false;
         infoCanvas.gameObject.SetActive(false);
     }
 

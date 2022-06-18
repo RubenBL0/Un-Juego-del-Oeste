@@ -20,4 +20,14 @@ public class PuebloButtons : MonoBehaviour
         GameManager.instance.ResumeGame();
         GameManager.instance.LoadOverworld();
     }
+
+    public void OnClickOptions()
+    {
+        GameManager.instance.ShowOptionsMenu();
+    }
+
+    public void OnClickBackOptions()
+    {
+        GameManager.instance.HideOptionsMenu();
+    }
 }
