@@ -23,6 +23,7 @@ public class LatasGameManager : MinijuegoController
         Lata.diana += SumaLatasYPuntos;
         Lata.sueloTocado += GameOver;
         CompruebaDisparo.comprobarDisparo += RestaMunicion;
+        Play();
     }
     private void OnDisable()
     {

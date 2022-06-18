@@ -45,6 +45,7 @@ public class PeleaManager : MinijuegoController
         tamanoOleada = 5;
         StartCoroutine(StartTimer());
         InvokeRepeating("IniciaOleadas", 0f, 40f);
+        Play();
     }
     private void Update()
     {

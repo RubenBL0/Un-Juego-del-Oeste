@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MinijuegoController : MonoBehaviour
 {
-
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +27,13 @@ public class MinijuegoController : MonoBehaviour
     public virtual void DifficultyHard()
     {
 
+    }
+
+    public virtual void Play()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+        GameManager.instance.StopMusic();
+        audio.Play();
+        audio.volume = DataManager.instance.Volume();
     }
 }

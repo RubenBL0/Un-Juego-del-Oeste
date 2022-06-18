@@ -18,6 +18,7 @@ public class VaquillasGameManager : MinijuegoController
     {
         Vaquillas.establoEntrando += SumaVacas;
         Vaquillas.establoSaliendo += RestaVacas;
+        Play();
     }
     private void OnDisable()
     {

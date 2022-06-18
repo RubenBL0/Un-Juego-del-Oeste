@@ -20,6 +20,7 @@ public class TrenGameManager : MinijuegoController
     {
         ControlCarrera.trenAlcanzado += EmpiezaASumar;
         ControlCarrera.trenSaliendo += DejaDeSumar;
+        Play();
     }
     private void OnDisable()
     {

@@ -6,6 +6,7 @@ public class DataManager : MonoBehaviour
 {
     public int slot;
     public static DataManager instance;
+    public int volume;
 
     private void Awake()
     {
@@ -18,6 +19,11 @@ public class DataManager : MonoBehaviour
         {
             Destroy(this);
         }
+        volume = GetVolume();
+    }
+
+    private void Start()
+    {
     }
 
     public void SetSlot(int slot)
@@ -84,5 +90,24 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.DeleteKey(MinigameNames.Pelea.ToString() + slot);
         PlayerPrefs.DeleteKey(MinigameNames.Escupitajo.ToString() + slot);
         PlayerPrefs.DeleteKey(MinigameNames.Tren.ToString() + slot);
+    }
+
+    public int GetVolume()
+    {
+        return PlayerPrefs.GetInt("volume", 50);
+    }
+
+    public void SetVolume(int vol)
+    {
+        vol = vol < 0 ? 0 : vol;
+        vol = vol > 100 ? 100 : vol;
+        PlayerPrefs.SetInt("volume", vol);
+        volume = vol;
+    }
+
+    //Usar este método para obtener el volumen como fracción entre 0 y 1
+    public float Volume()
+    {
+        return volume / 100f;
     }
 }

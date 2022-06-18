@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
     public Canvas filesCanvas;
     public Canvas optionCanvas;
 
+    AudioSource audio;
     private void Awake()
     {
         if(instance == null)
@@ -25,6 +26,7 @@ public class MainMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         if (GameManager.instance != null)
         {
             Destroy(GameManager.instance.gameObject);
@@ -34,8 +36,14 @@ public class MainMenuManager : MonoBehaviour
         {
             Destroy(PlayerController.instance.gameObject);
         }
-
+        PlayMusic();
         ShowMainCanvas();
+    }
+
+    void PlayMusic()
+    {
+        audio.volume = DataManager.instance.Volume();
+        audio.Play();
     }
 
     // Update is called once per frame

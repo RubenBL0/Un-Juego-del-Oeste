@@ -36,7 +36,8 @@ public class EscupitajoManager : MinijuegoController
     // Start is called before the first frame update
     void Start()
     {
-        SetDifficulty();
+        SetDifficulty(); 
+        Play();
     }
 
     // Update is called once per frame

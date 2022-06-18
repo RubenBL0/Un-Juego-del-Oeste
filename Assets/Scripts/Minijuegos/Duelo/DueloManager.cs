@@ -82,6 +82,7 @@ public class DueloManager : MinijuegoController
 
         playerAnim = player.GetComponent<Animator>();
         enemyAnim = enemy.GetComponent<Animator>();
+        Play();
     }
 
     // Update is called once per frame

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
 
-    public AudioSource musicaPueblo;
+    AudioSource musicaPueblo;
 
     Object scene = null;
     private void Awake()
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         FindObjectOfType<PlayerController>().transform.position = DataManager.instance.GetPosition();
         musicaPueblo = GetComponent<AudioSource>();
-        musicaPueblo.Play();
+        PlayMusic();
     }
 
     // Update is called once per frame
@@ -61,6 +61,18 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void PlayMusic()
+    {
+        musicaPueblo.Play();
+        musicaPueblo.volume = DataManager.instance.Volume();
+    }
+
+    public void StopMusic()
+    {
+        musicaPueblo.Stop();
+    }
+
 
     public void SetCurrentDifficulty(Dificultad dif)
     {
