@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class PeleaManager : MonoBehaviour
+public class PeleaManager : MinijuegoController
 {
     [SerializeField] private GameObject player, enemigo, botella;
     [SerializeField] private TextMeshProUGUI t_temporizador;
@@ -12,10 +12,13 @@ public class PeleaManager : MonoBehaviour
     [SerializeField] private Transform[] spawnZones = new Transform[3];
     [SerializeField] private int n_enemigos;
     [SerializeField] private Collider2D barraBar;
+    [SerializeField] private GameObject sceneLoadManager;
+    [SerializeField] private Animator fadeAnimator;
 
     public static event Action instanciaEnemigos;
 
     private int minutos, segundos, centesimas, rnum, tamanoOleada;
+    private float tiempoNecesario;
 
     #region Suscribe Eventos
     private void OnEnable()
@@ -32,6 +35,10 @@ public class PeleaManager : MonoBehaviour
     }
     #endregion
 
+    private void Awake()
+    {
+        SetDifficulty();
+    }
     void Start()
     {
         n_enemigos = 0;
@@ -41,6 +48,7 @@ public class PeleaManager : MonoBehaviour
     }
     private void Update()
     {
+        tiempoNecesario = minutos;
         if (timerTime == 0 && n_enemigos == 0)
         {
             GameOver();
@@ -60,10 +68,6 @@ public class PeleaManager : MonoBehaviour
             tamanoOleada += 2;
         }        
     }
-    void GameOver()
-    {
-        Time.timeScale = 0f;
-    }
     Vector2 GetSpawnZone()
     {
         rnum = UnityEngine.Random.Range(0, 3);
@@ -76,6 +80,67 @@ public class PeleaManager : MonoBehaviour
     void RestaEnemigos()
     {
         n_enemigos--;
+    }
+    void GameOver()
+    {
+        if (tiempoNecesario >= timerTime)
+        {
+            LanzaTransicion();
+            Invoke("OnWinGame", 1f);
+        }
+        else
+        {
+            LanzaTransicion();
+            Invoke("OnLoseGame", 1f);
+        }
+    }
+    void LanzaTransicion()
+    {
+        sceneLoadManager.SetActive(true);
+        fadeAnimator.SetTrigger("StartTransition");
+    }
+    private void OnWinGame()
+    {
+        GameManager.instance.OnWinGame();
+    }
+
+    private void OnLoseGame()
+    {
+        GameManager.instance.OnLoseGame();
+    }
+
+    //Métodos de MinijuegoController
+    public void SetDifficulty()
+    {
+        switch (GameManager.instance.GetCurrentGameDifficulty())
+        {
+            case Dificultad.Facil:
+                DifficultyEasy();
+                break;
+            case Dificultad.Medio:
+                DifficultyMedium();
+                break;
+            case Dificultad.Dificil:
+                DifficultyHard();
+                break;
+        }
+    }
+    public override void DifficultyEasy()
+    {
+        base.DifficultyEasy();
+        tiempoNecesario = 150f;
+    }
+
+    public override void DifficultyMedium()
+    {
+        base.DifficultyMedium();
+        tiempoNecesario = 90f;
+    }
+
+    public override void DifficultyHard()
+    {
+        base.DifficultyHard();
+        tiempoNecesario = 30f;
     }
     IEnumerator InstanciaEnemigos(int tamanoOleada)
     {
