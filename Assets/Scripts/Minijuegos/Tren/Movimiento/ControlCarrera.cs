@@ -57,7 +57,7 @@ public class ControlCarrera : MonoBehaviour
     {
         Vector2 posicion = transform.position;
         Vector2 direccion = Vector2.down;
-        float distancia = 0.45f;
+        float distancia = 1.2f;
 
         RaycastHit2D hit = Physics2D.Raycast(posicion, direccion, distancia, groundLayer);
         if (hit.collider != null)
