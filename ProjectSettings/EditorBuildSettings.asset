@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minijuegos/Latas.unity
     guid: a12d08e1cf04ba7489dd2c7ced14b089
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/Pelea.unity
+    guid: 4c57d805e80e38f45a83bff5caf271d6
   m_configObjects: {}
