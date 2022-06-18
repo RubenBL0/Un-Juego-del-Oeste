@@ -4,14 +4,16 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class TrenGameManager : MonoBehaviour
+public class TrenGameManager : MinijuegoController
 {
     [SerializeField] private TextMeshProUGUI t_puntos, t_timer, t_distancia;    
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject tren;
+    [SerializeField] private GameObject sceneLoadManager;
+    [SerializeField] private Animator fadeAnimator;
     public static event Action escapaTren, tiempoAlcanzado;
     private float timerTime;
-    private int puntos, sumaPuntos, n_aleatorio, minutos, segundos, centesimas;
+    private int puntos, sumaPuntos, n_aleatorio, minutos, segundos, centesimas, targetPuntos;
     private bool controlCorrutina, controlFinal, controlTiempo;
 
     private void OnEnable()
@@ -23,6 +25,11 @@ public class TrenGameManager : MonoBehaviour
     {
         ControlCarrera.trenAlcanzado -= EmpiezaASumar;
         ControlCarrera.trenSaliendo -= DejaDeSumar;
+    }
+
+    private void Awake()
+    {
+        SetDifficulty();
     }
     void Start()
     {
@@ -48,6 +55,7 @@ public class TrenGameManager : MonoBehaviour
             //Debug.Log("el tren se ha escapado");
             escapaTren?.Invoke();
             controlFinal = true;
+            GameOver();
         }
         if (timerTime >= 90 && !controlTiempo)
         {
@@ -82,6 +90,67 @@ public class TrenGameManager : MonoBehaviour
                 break;
         }
         return sumaPuntos;
+    }
+    void GameOver()
+    {
+        if (puntos >= targetPuntos)
+        {
+            LanzaTransicion();
+            Invoke("OnWinGame", 1f);
+        }
+        else
+        {
+            LanzaTransicion();
+            Invoke("OnLoseGame", 1f);
+        }
+    }
+    void LanzaTransicion()
+    {
+        sceneLoadManager.SetActive(true);
+        fadeAnimator.SetTrigger("StartTransition");
+    }
+    private void OnWinGame()
+    {
+        GameManager.instance.OnWinGame();
+    }
+
+    private void OnLoseGame()
+    {
+        GameManager.instance.OnLoseGame();
+    }
+
+    //Métodos de MinijuegoController
+    public void SetDifficulty()
+    {
+        switch (GameManager.instance.GetCurrentGameDifficulty())
+        {
+            case Dificultad.Facil:
+                DifficultyEasy();
+                break;
+            case Dificultad.Medio:
+                DifficultyMedium();
+                break;
+            case Dificultad.Dificil:
+                DifficultyHard();
+                break;
+        }
+    }
+    public override void DifficultyEasy()
+    {
+        base.DifficultyEasy();
+        targetPuntos = 800;
+    }
+
+    public override void DifficultyMedium()
+    {
+        base.DifficultyMedium();
+        targetPuntos = 1500;
+    }
+
+    public override void DifficultyHard()
+    {
+        base.DifficultyHard();
+        targetPuntos = 2500;
     }
     IEnumerator SumaPuntos()
     {

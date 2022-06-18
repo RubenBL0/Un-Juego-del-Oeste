@@ -1247,6 +1247,73 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 19.2, y: 1.7762337}
   m_EdgeRadius: 0
+--- !u!1001 &1172524221
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5271505770370898002, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_Name
+      value: SceneLoadManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.0328155
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.9315536
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.085051194
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271505770370898003, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+--- !u!1 &1172524222 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5271505770370898002, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+  m_PrefabInstance: {fileID: 1172524221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1172524223 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5271505770336119283, guid: fdcc3aaa253109c44b33303b6ecbdcc6, type: 3}
+  m_PrefabInstance: {fileID: 1172524221}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1195068614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,6 +3123,8 @@ MonoBehaviour:
   t_distancia: {fileID: 973948918}
   player: {fileID: 1396036480}
   tren: {fileID: 1667059108}
+  sceneLoadManager: {fileID: 1172524222}
+  fadeAnimator: {fileID: 1172524223}
 --- !u!4 &1824145966
 Transform:
   m_ObjectHideFlags: 0
