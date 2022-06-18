@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
 
+    public AudioSource musicaPueblo;
+
     Object scene = null;
     private void Awake()
     {
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         FindObjectOfType<PlayerController>().transform.position = DataManager.instance.GetPosition();
+        musicaPueblo = GetComponent<AudioSource>();
+        musicaPueblo.Play();
     }
 
     // Update is called once per frame
@@ -126,6 +130,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(scene.name);
         DataManager.instance.SavePosition(FindObjectOfType<PlayerController>().transform.position);
         ActivatePlayer(false);
+        musicaPueblo.Stop();
     }
 
     public void StartTransition()
@@ -145,6 +150,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(overworld.name);
         PlayerController.instance.transform.position = DataManager.instance.GetPosition();
         ActivatePlayer(true);
+        musicaPueblo.Play();
     }
 
     public void ReturnToMainMenu()
