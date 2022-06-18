@@ -26173,9 +26173,10 @@ GameObject:
   m_Component:
   - component: {fileID: 863421460}
   - component: {fileID: 863421459}
+  - component: {fileID: 863421461}
   m_Layer: 0
   m_Name: LimitesMapa(Camera)
-  m_TagString: Untagged
+  m_TagString: limitesMapa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26224,6 +26225,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &863421461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863421458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb7c9b8893cdda41b92d944bca526f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &869924696
 GameObject:
   m_ObjectHideFlags: 0
@@ -50950,6 +50963,7 @@ GameObject:
   - component: {fileID: 1661082076}
   - component: {fileID: 1661082075}
   - component: {fileID: 1661082077}
+  - component: {fileID: 1661082078}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -50986,7 +51000,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.091946, y: 1}
+    m_SensorSize: {x: 1.776965, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -51026,6 +51040,18 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 863421459}
   m_Damping: 1
   m_MaxWindowSize: -1
+--- !u!114 &1661082078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661082074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85f73d6294669645b352a4c48dbc94d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1661135708
 GameObject:
   m_ObjectHideFlags: 0
@@ -53408,7 +53434,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: e6d6c7236fa56644e80da0ab7c364a2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

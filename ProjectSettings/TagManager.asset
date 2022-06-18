@@ -15,6 +15,7 @@ TagManager:
   - obstaculo
   - lata
   - Enemigo
+  - limitesMapa
   layers:
   - Default
   - TransparentFX

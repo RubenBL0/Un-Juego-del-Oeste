@@ -121,16 +121,30 @@ public class LatasGameManager : MinijuegoController
             posInstLata.x = Random.Range(-8f, 8f);
             Instantiate(lata, posInstLata, Quaternion.identity);
         }
+        if (puntos == 30)
+        {
+            posInstLata.y = 6.5f;
+            posInstLata.x = Random.Range(-8f, 8f);
+            Instantiate(lata, posInstLata, Quaternion.identity);
+        }
+        if (puntos == 60)
+        {
+            posInstLata.y = 6.5f;
+            posInstLata.x = Random.Range(-8f, 8f);
+            Instantiate(lata, posInstLata, Quaternion.identity);
+        }
     }
     void GameOver()
     {
         if (puntos >= targetPuntos)
         {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             LanzaTransicion();
             Invoke("OnWinGame", 1f);
         }
         else
         {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             LanzaTransicion();
             Invoke("OnLoseGame", 1f);
         }
