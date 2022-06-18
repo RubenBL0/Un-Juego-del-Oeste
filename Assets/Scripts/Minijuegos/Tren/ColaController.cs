@@ -5,6 +5,7 @@ using UnityEngine;
 public class ColaController : MonoBehaviour
 {
     [SerializeField] private TrainController tren;
+    [SerializeField] private Animator animPuerta;
     private bool controlCorrutina;
     private int vecesAlcanzado;
 
@@ -43,6 +44,7 @@ public class ColaController : MonoBehaviour
                 break;
 
             case 3:
+                animPuerta.SetTrigger("AbrirPuerta");
                 tren.limVelocidad = 14f;
                 break;
 
