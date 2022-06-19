@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     public Canvas optionCanvas;
 
     public Slider volumeSlider;
+    public TextMeshProUGUI txtVolume;
 
     AudioSource audio;
     private void Awake()
@@ -30,6 +32,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         volumeSlider.value = DataManager.instance.Volume() * 100;
+        txtVolume.text = volumeSlider.value.ToString(); ;
         audio = GetComponent<AudioSource>();
         if (GameManager.instance != null)
         {
@@ -80,6 +83,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnChangeVolume()
     {
         int volume = (int)volumeSlider.value;
+        txtVolume.text = volumeSlider.value.ToString();
         DataManager.instance.SetVolume(volume);
         foreach(AudioSource audio in FindObjectsOfType<AudioSource>())
         {

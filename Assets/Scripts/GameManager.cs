@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     AudioSource musicaPueblo;
 
     public Slider volumeSlider;
+    public TextMeshProUGUI txtVolume;
 
     Object scene = null;
     private void Awake()
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         volumeSlider.value = DataManager.instance.Volume() * 100;
+        txtVolume.text = volumeSlider.value.ToString();
         FindObjectOfType<PlayerController>().transform.position = DataManager.instance.GetPosition();
         musicaPueblo = GetComponent<AudioSource>();
         PlayMusic();
@@ -234,6 +237,7 @@ public class GameManager : MonoBehaviour
     public void OnVolumeChange()
     {
         int volume = (int)volumeSlider.value;
+        txtVolume.text = volumeSlider.value.ToString();
         DataManager.instance.SetVolume(volume);
         foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
         {
