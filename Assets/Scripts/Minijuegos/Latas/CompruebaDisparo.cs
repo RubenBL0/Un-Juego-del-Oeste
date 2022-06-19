@@ -6,8 +6,11 @@ using UnityEngine;
 public class CompruebaDisparo : MonoBehaviour
 {
     public static event Action comprobarDisparo;
+    [SerializeField] private AudioSource disparo;
+
     private void OnMouseDown()
     {
+        disparo.Play();
         comprobarDisparo?.Invoke();
     }
 }

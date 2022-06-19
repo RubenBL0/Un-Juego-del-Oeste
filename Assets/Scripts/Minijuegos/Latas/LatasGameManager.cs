@@ -13,6 +13,8 @@ public class LatasGameManager : MinijuegoController
     [SerializeField] private GameObject lata;
     [SerializeField] private GameObject sceneLoadManager;
     [SerializeField] private Animator fadeAnimator;
+    [SerializeField] private AudioSource disparo;
+    [SerializeField] private AudioSource recarga;
 
     private int puntos, targetPuntos, municion, latasAlcanzadas, latasParaRecargar;
 
@@ -52,6 +54,7 @@ public class LatasGameManager : MinijuegoController
     
     void SumaLatasYPuntos()
     {
+        disparo.Play();
         puntos++;
         latasAlcanzadas++;
         InstanciaLata();
@@ -63,6 +66,7 @@ public class LatasGameManager : MinijuegoController
     }
     void RecargaMunicion()
     {
+        recarga.Play();
         municion = 5;
         latasAlcanzadas = 0;
         ActualizaIm_Municion();
