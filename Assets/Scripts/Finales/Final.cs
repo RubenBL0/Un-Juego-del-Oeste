@@ -12,6 +12,7 @@ public class Final : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        imageFondo.color = Color.black;
         StartCoroutine(Textos());
     }
 
@@ -23,16 +24,37 @@ public class Final : MonoBehaviour
 
     private IEnumerator Textos()
     {
+        int texto = 0;
+        bool changed = false;
         foreach(TextoFinales txt in listaTextos)
         {
+            texto++;
             yield return new WaitForSeconds(txt.tiempoEmpezar);
             foreach (char c in txt.contenido)
             {
+                if(texto == 3 && !changed)
+                {
+                    changed = true;
+                    StartCoroutine(Gradient());
+                }
                 txt.texto.text = txt.texto.text + c;
                 yield return new WaitForSeconds(txt.tiempoLetra);
             }
         }
         yield return new WaitForSeconds(7f);
         GameManager.instance.ReturnToMainMenu();
+    }
+
+    IEnumerator Gradient()
+    {
+        float t = 0f;
+        while (t < 1f)
+        {
+            Color value = Color.Lerp(Color.black, Color.white, t);
+            t += Time.deltaTime;
+            imageFondo.color = value;
+            yield return null;
+        }
+        yield return null;
     }
 }
