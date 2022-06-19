@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     public Slider volumeSlider;
     public TextMeshProUGUI txtVolume;
 
+    public int final; //Del 0 al 4, los diferentes finales que hay
+
     Object scene = null;
     private void Awake()
     {
@@ -273,5 +275,23 @@ public class GameManager : MonoBehaviour
             }
         }
         minigamesStatus = none != 0 ? MinigameScore.None : (bronze != 0 ? MinigameScore.Bronze : (silver != 0 ? MinigameScore.Silver : MinigameScore.Gold));
+    }
+
+    public void OnWinFinalGame(int final)
+    {
+        this.final = final;
+        SceneManager.LoadScene("Finales");
+    }
+
+    public void OnDieFinalGame()
+    {
+        final = 0;
+        SceneManager.LoadScene("Finales");
+    }
+
+    public void OnLoseFinalGame()
+    {
+        final = 1;
+        SceneManager.LoadScene("Finales");
     }
 }

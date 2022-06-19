@@ -13,7 +13,8 @@ public class TrenGameManager : MinijuegoController
     [SerializeField] private Animator fadeAnimator;
     public static event Action escapaTren, tiempoAlcanzado;
     private float timerTime;
-    private int puntos, sumaPuntos, n_aleatorio, minutos, segundos, centesimas, targetPuntos;
+    private int sumaPuntos, n_aleatorio, minutos, segundos, centesimas, targetPuntos;
+    [SerializeField] private int puntos;
     private bool controlCorrutina, controlFinal, controlTiempo;
 
     private void OnEnable()
@@ -112,12 +113,27 @@ public class TrenGameManager : MinijuegoController
     }
     private void OnWinGame()
     {
-        GameManager.instance.OnWinGame();
+        int final = GameManager.instance.GetCurrentGameDifficulty() == Dificultad.Facil ? 1 : (GameManager.instance.GetCurrentGameDifficulty() == Dificultad.Medio ? 2 : 3);
+        GameManager.instance.OnWinFinalGame(final);
     }
 
     private void OnLoseGame()
     {
-        GameManager.instance.OnLoseGame();
+        if(GameManager.instance.GetCurrentGameDifficulty() == Dificultad.Medio || GameManager.instance.GetCurrentGameDifficulty() == Dificultad.Dificil)
+        {
+            if(puntos >= targetPuntos / 2)
+            {
+                GameManager.instance.OnLoseFinalGame();
+            }
+            else
+            {
+                GameManager.instance.OnDieFinalGame();
+            }
+        }
+        else
+        {
+            GameManager.instance.OnDieFinalGame();
+        }
     }
 
     //Métodos de MinijuegoController

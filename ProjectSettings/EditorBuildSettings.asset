@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minijuegos/Pelea.unity
     guid: 4c57d805e80e38f45a83bff5caf271d6
+  - enabled: 1
+    path: Assets/Scenes/Finales.unity
+    guid: 07fa589ff32fbc34eb4befe49fec36d3
   m_configObjects: {}
