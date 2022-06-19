@@ -26,6 +26,8 @@ public class DueloManager : MinijuegoController
     [SerializeField] private GameObject sceneLoadManager;
     [SerializeField] private Animator fadeAnimator;
 
+    [SerializeField] private AudioSource disparo;
+
     //Animators
     Animator playerAnim;
     Animator enemyAnim;
@@ -179,7 +181,9 @@ public class DueloManager : MinijuegoController
     void WinDuel()
     {
         enemyHealth -= 1;
+        disparo.Play();
         playerAnim.SetTrigger("Shooting");
+        enemyAnim.applyRootMotion = false;
         enemyAnim.SetTrigger("Dead");
         CheckGameState();
     }
@@ -187,7 +191,9 @@ public class DueloManager : MinijuegoController
     void LoseDuel()
     {
         playerHealth -= 1;
+        disparo.Play();
         enemyAnim.SetTrigger("Shooting");
+        playerAnim.applyRootMotion = false;
         playerAnim.SetTrigger("Dead");
         CheckGameState();
     }
@@ -280,11 +286,15 @@ public class DueloManager : MinijuegoController
             yield return null;
         }
 
+        playerAnim.applyRootMotion = true;
         playerAnim.SetTrigger("Base");
+        enemyAnim.applyRootMotion = true;
         enemyAnim.SetTrigger("Base");
 
         player.transform.position = playerOrigin.position;
+        player.transform.rotation = Quaternion.identity;
         enemy.transform.position = enemyOrigin.position;
+        enemy.transform.rotation = Quaternion.identity;
 
         gameCoroutine = StartCoroutine(TimeCoroutine());
     }
