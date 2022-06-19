@@ -69,12 +69,12 @@ public class ControlCarrera : MonoBehaviour
     }
     private void MuevePlayer()
     {
-        if (Input.GetKeyDown(KeyCode.A) && controlTecla && !trenEscapado && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.G) && controlTecla && !trenEscapado && IsGrounded())
         {
             rb.AddForce(rb.transform.right * fuerzaEmpuje, ForceMode2D.Impulse);
             controlTecla = false;
         }
-        if (Input.GetKeyDown(KeyCode.D) && !controlTecla && !trenEscapado && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.H) && !controlTecla && !trenEscapado && IsGrounded())
         {
             rb.AddForce(rb.transform.right * fuerzaEmpuje, ForceMode2D.Impulse);
             controlTecla = true;
