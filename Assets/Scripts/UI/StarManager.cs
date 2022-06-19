@@ -35,7 +35,6 @@ public class StarManager : MonoBehaviour
 
     public void ShowStar(Star star)
     {
-        GetComponent<Canvas>().worldCamera = Camera.main;
         star.StartAnimation();
     }
 }

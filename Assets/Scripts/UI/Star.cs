@@ -14,6 +14,7 @@ public class Star : MonoBehaviour
     public void StopAnim()
     {
         Time.timeScale = 1f;
+        GameManager.instance.VictoriaStarOut();
         GameManager.instance.LoadOverworld();
         GetComponent<Animator>().SetTrigger("Remove");
     }
