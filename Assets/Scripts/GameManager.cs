@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
 
     public Slider volumeSlider;
     public TextMeshProUGUI txtVolume;
+    public Slider sfxSlider;
+    public TextMeshProUGUI txtSFX;
 
     public int final; //Del 0 al 4, los diferentes finales que hay
 
@@ -59,6 +61,8 @@ public class GameManager : MonoBehaviour
     {
         volumeSlider.value = DataManager.instance.Volume() * 100;
         txtVolume.text = volumeSlider.value.ToString();
+        sfxSlider.value = DataManager.instance.SFX() * 100;
+        txtSFX.text = sfxSlider.value.ToString();
         FindObjectOfType<PlayerController>().transform.position = DataManager.instance.GetPosition();
         musicaPueblo = GetComponent<AudioSource>();
         PlayMusic();
@@ -286,6 +290,13 @@ public class GameManager : MonoBehaviour
         {
             audio.volume = DataManager.instance.Volume();
         }
+    }
+
+    public void OnSFXChange()
+    {
+        int sfx = (int)sfxSlider.value;
+        txtSFX.text = sfxSlider.value.ToString();
+        DataManager.instance.SetSFX(sfx);
     }
 
     public void ShowOptionsMenu()

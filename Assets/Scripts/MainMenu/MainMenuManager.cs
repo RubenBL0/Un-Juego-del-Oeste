@@ -14,6 +14,8 @@ public class MainMenuManager : MonoBehaviour
 
     public Slider volumeSlider;
     public TextMeshProUGUI txtVolume;
+    public Slider sfxSlider;
+    public TextMeshProUGUI txtSFX;
 
     AudioSource audio;
     private void Awake()
@@ -32,7 +34,11 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         volumeSlider.value = DataManager.instance.Volume() * 100;
-        txtVolume.text = volumeSlider.value.ToString(); ;
+        txtVolume.text = volumeSlider.value.ToString();
+        sfxSlider.value = DataManager.instance.SFX() * 100;
+        txtSFX.text = sfxSlider.value.ToString();
+        print(sfxSlider.value);
+
         audio = GetComponent<AudioSource>();
         if (GameManager.instance != null)
         {
@@ -89,5 +95,12 @@ public class MainMenuManager : MonoBehaviour
         {
             audio.volume = DataManager.instance.Volume();
         }
+    }
+
+    public void OnChangeSFX()
+    {
+        int sfx = (int)sfxSlider.value;
+        txtSFX.text = sfxSlider.value.ToString();
+        DataManager.instance.SetSFX(sfx);
     }
 }
