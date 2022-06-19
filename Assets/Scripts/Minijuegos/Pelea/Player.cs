@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody2D rbBotella;
     [SerializeField] private Image barraVida;
     [SerializeField] private Transform posBotella;
+    [SerializeField] private AudioSource golpe, recibeGolpe, lanzaBotella;
+    [SerializeField] private Animator animator;
 
     private float vh;
     private float vv;
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         vida = vidaMax;
         recogible = false;
     }
@@ -83,8 +86,11 @@ public class Player : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 2f, enemigoLayer);
 
+            animator.SetTrigger("Pega");
+
             if (hit.collider != null)
             {
+                golpe.Play();
                 hit.transform.GetComponent<Enemigo>().RestaVida(dano);
             }
         }
@@ -111,6 +117,7 @@ public class Player : MonoBehaviour
             rbBotella.transform.SetParent(null);
             rbBotella.simulated = true;
             rbBotella.AddForce(transform.right * fuerzaLanzamieto, ForceMode2D.Impulse);
+            lanzaBotella.Play();
             recogible = false;
         }
     }
@@ -132,6 +139,7 @@ public class Player : MonoBehaviour
 
     public void RestaVida(int a)
     {
+        recibeGolpe.Play();
         vida -= a;
         ActualizaBarraVida();
     }

@@ -9,6 +9,9 @@ public class Enemigo : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameObject player;
     [SerializeField] private EnemigoGolpe controlGolpe;
+    [SerializeField] private AudioClip[] dolores = new AudioClip[4];
+    [SerializeField] private AudioSource recibeGolpe;
+    public Animator animator;
 
     public static event Action sumaEnemigos;
     public static event Action restaEnemigos;
@@ -37,6 +40,7 @@ public class Enemigo : MonoBehaviour
         speed = datosEnemigo.Speed;  
         probRage = datosEnemigo.ProbRage;
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         sumaEnemigos?.Invoke();
         rage = false;
     }
@@ -74,9 +78,17 @@ public class Enemigo : MonoBehaviour
     }
     public void RestaVida(int a)
     {
+        recibeGolpe.clip = GetRandomAudioClip();
+        recibeGolpe.Play();
         vida -= a;
         Debug.Log(vida);
-    }  
+    }
+    
+    AudioClip GetRandomAudioClip()
+    {
+        int a = UnityEngine.Random.Range(0, 5);
+        return dolores[a];
+    }
     
     IEnumerator Rage(float probRage)
     {
