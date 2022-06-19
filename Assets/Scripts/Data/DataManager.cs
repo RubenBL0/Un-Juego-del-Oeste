@@ -7,6 +7,7 @@ public class DataManager : MonoBehaviour
     public int slot;
     public static DataManager instance;
     public int volume;
+    public int sfx;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class DataManager : MonoBehaviour
             Destroy(this);
         }
         volume = GetVolume();
+        sfx = GetSFX();
     }
 
     private void Start()
@@ -105,9 +107,28 @@ public class DataManager : MonoBehaviour
         volume = vol;
     }
 
+    public int GetSFX()
+    {
+        return PlayerPrefs.GetInt("sfx", 50);
+    }
+
+    public void SetSFX(int sfx)
+    {
+        sfx = sfx < 0 ? 0 : sfx;
+        sfx = sfx > 100 ? 100 : sfx;
+        PlayerPrefs.SetInt("sfx", sfx);
+        this.sfx = sfx;
+    }
+
+
     //Usar este método para obtener el volumen como fracción entre 0 y 1
     public float Volume()
     {
         return volume / 100f;
+    }
+
+    public float SFX()
+    {
+        return sfx / 100f;
     }
 }
