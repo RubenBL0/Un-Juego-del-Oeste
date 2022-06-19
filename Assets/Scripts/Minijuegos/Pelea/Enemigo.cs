@@ -79,6 +79,7 @@ public class Enemigo : MonoBehaviour
     public void RestaVida(int a)
     {
         recibeGolpe.clip = GetRandomAudioClip();
+        recibeGolpe.volume = DataManager.instance.GetSFX();
         recibeGolpe.Play();
         vida -= a;
         Debug.Log(vida);
@@ -86,7 +87,7 @@ public class Enemigo : MonoBehaviour
     
     AudioClip GetRandomAudioClip()
     {
-        int a = UnityEngine.Random.Range(0, 5);
+        int a = UnityEngine.Random.Range(0, 4);
         return dolores[a];
     }
     

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.UI;
 
-public class BotonDificultad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class BotonDificultad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private bool mouse_over = false;
     [SerializeField] Dificultad dificultad = Dificultad.Facil;
@@ -25,12 +26,18 @@ public class BotonDificultad : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     void Update()
     {
+        if (enabled)
+        {
+            GetComponent<Button>().enabled = true;
+            txtDificultad.color = colorExit;
+        }
         if (mouse_over && enabled)
         {
             txtDificultad.color = colorHover;
         }
         if (!enabled)
         {
+            GetComponent<Button>().enabled = false;
             txtDificultad.color = colorLocked;
         }
     }
@@ -46,7 +53,11 @@ public class BotonDificultad : MonoBehaviour, IPointerEnterHandler, IPointerExit
         txtDificultad.color = colorExit;
     }
 
-    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        mouse_over = false;
+        txtDificultad.color = colorExit;
+    }
 }
 
 public enum Dificultad
