@@ -177,21 +177,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: bc25ffff5a28ffffba30ffff9238ffffdc53ffff3659ffff5a5bffff0473ffff8e75ffff387fffff7a7ffffff280ffff9a88ffff3491ffff8e91ffff8292ffffe492ffff90abffff2eafffff20b1ffff8ec1ffffe8c4ffffe4d8ffff0cebffff42ecffff10fbfffff4ffffff1e260100822701005e2a0100d42b01009a300100d2300100e831010040350100223601007c3a01008a3a0100ca3a01005e3b0100623b01007e3b01009a3b0100be3b0100e63b0100fe3b0100023c0100083c01001e3c0100223c01002e3c0100363c0100d04801005a4a0100ce9d0200a69f020074a2020094a20200b2a70200daa90200faa9020012aa0200d2ad0200feaf020088b4020034b8020098b80200b8b8020026b902004ab9020022d1020070e80200
+      m_ExpandedIDs: 7abdfeff98c2feff00c5feffe6c5feff44c6feffb0c6feff32c7feff90c7feff52c9feff4ccafeffe6d1feffe2d2feff28d3feff18d5feff44d5feff88d5feffbad5fefff8d5feff42d6feff7ed6feff8ed6feffdcd6feffeed6feff6ad8feffb2dafeff0cdbfefff8dcfeff20ddfeff60ddfeff8eddfeffc8ddfeff0edefeff46defeff52defeff9cdefeffaadefeff64e0feffbee0feffaae2feffd2e2feff12e3feff40e3feff7ae3feffc0e3fefff8e3feff04e4feff4ee4feff5ce4feffd402ffff4c04ffff4005ffff5a0bffff0e0dffff540dffff400fffff680fffffa80fffffd60fffff1010ffff5610ffff8e10ffff9a10ffffe410fffff210ffff5a11ffff4813ffffb013fffff415ffff3c16ffff6016ffff8416ffffbc16ffffe416ffff0e17ffff4a17ffff8017ffff8c17ffffb617ffffc417ffff1e19ffff6419ffff501bffff781bffffb81bffffe61bffff201cffff661cffff9e1cffffaa1cfffff41cffff021dffff061dffff3020ffff5c22ffffb624ffffbc25ffff5a28ffffba30ffff9238ffffdc53ffff3659ffff5a5bffff0473ffff8e75ffff387fffff7a7ffffff280ffff9a88ffff3491ffff8e91ffff8292ffffe492ffff90abffff2eafffff20b1ffff8ec1ffffe8c4ffffe4d8ffff0cebffff42ecffff10fbfffff4ffffff1e260100822701005e2a0100d42b01009a300100d2300100e831010040350100223601007c3a01008a3a0100ca3a01005e3b0100623b01007e3b01009a3b0100be3b0100e63b0100fe3b0100023c0100083c01001e3c0100223c01002e3c0100363c0100d04801005a4a0100ce9d0200a69f020074a2020094a20200b2a70200daa90200faa9020012aa0200d2ad0200feaf020088b4020034b8020098b80200b8b8020026b902004ab9020022d1020070e80200ce13040024f60400720e0500960e0500800f0500a40f0500
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: SueloPueblo
+        m_OriginalName: SueloPueblo
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 331254
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 4
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 3}
       m_SearchString: 
@@ -501,9 +501,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 533.6258, y: 145.96677, z: -17.88027}
+    m_Target: {x: 9.906063, y: 3.1591187, z: -0.24815388}
     speed: 2
-    m_Value: {x: 514.65137, y: 155.04657, z: -17.535704}
+    m_Value: {x: 9.906063, y: 3.1591187, z: -0.24815388}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -554,9 +554,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 800.1608
+    m_Target: 18.908587
     speed: 2
-    m_Value: 765.70416
+    m_Value: 18.908587
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -864,22 +864,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Sprites/EnemigoDuelo
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Sprites/EnemigoDuelo
   m_LastFoldersGridSize: -1
   m_LastProjectPath: R:\Unity\CEVRA_Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 0e7d0000
-    m_LastClickedID: 32014
-    m_ExpandedIDs: 000000009465000096650000986500009a6500009c6500009e650000a065000000ca9a3b
+    scrollPos: {x: 0, y: 453}
+    m_SelectedIDs: d46b0000
+    m_LastClickedID: 27604
+    m_ExpandedIDs: 000000009465000096650000986500009a6500009c6500009e650000a0650000206b0000a07000002a7200000e7d00000480000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -934,8 +934,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: e4680000
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: e4680000047d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
