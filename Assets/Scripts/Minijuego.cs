@@ -11,6 +11,8 @@ public class Minijuego : MonoBehaviour
 
     public MinijuegoTrigger trigger;
 
+    public bool requiresStars = false; //Marcar esto si requiere las estrellas para entrar
+
     public static GameObject minigamesParent = null;
 
     private void Awake()
@@ -22,14 +24,18 @@ public class Minijuego : MonoBehaviour
         }
         else if(minigamesParent != this.transform.parent.gameObject)
         {
-            print("destruir");
             Destroy(this.transform.parent.gameObject);
         }
+
     }
 
-    private void Start()
+    private void OnEnable()
     {
         gameScore = DataManager.instance.GetMinigameScore(name);
+    }
+    private void Start()
+    {
+        
     }
     // Update is called once per frame
     void Update()

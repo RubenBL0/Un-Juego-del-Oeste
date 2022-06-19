@@ -46,10 +46,17 @@ public class MinijuegoTrigger : MonoBehaviour
     {
         
     }
-   
+
     public void ShowCanvas()
     {
-        enterCanvas.gameObject.SetActive(true);
+        if (!minigame.requiresStars)
+        {
+            enterCanvas.gameObject.SetActive(true);
+        }
+        else if (GameManager.instance.minigamesStatus != MinigameScore.None)
+        {
+            enterCanvas.gameObject.SetActive(true);
+        }
     }
 
     public void HideCanvas()
@@ -59,11 +66,22 @@ public class MinijuegoTrigger : MonoBehaviour
 
     public void InfoCanvas()
     {
-        Time.timeScale = 0f;
-        GameManager.instance.isMinigameCanvasShown = true;
-        infoCanvas.worldCamera = Camera.main;
-        infoCanvas.gameObject.SetActive(true);
-        ActivateButtons();
+        if (!minigame.requiresStars)
+        {
+            Time.timeScale = 0f;
+            GameManager.instance.isMinigameCanvasShown = true;
+            infoCanvas.worldCamera = Camera.main;
+            infoCanvas.gameObject.SetActive(true);
+            ActivateButtons();
+        }
+        else if(GameManager.instance.minigamesStatus != MinigameScore.None)
+        {
+            Time.timeScale = 0f;
+            GameManager.instance.isMinigameCanvasShown = true;
+            infoCanvas.worldCamera = Camera.main;
+            infoCanvas.gameObject.SetActive(true);
+            ActivateButtons();
+        }
     }
     
     public void HideInfoCanvas()
@@ -77,49 +95,97 @@ public class MinijuegoTrigger : MonoBehaviour
 
     public void ActivateButtons()
     {
-        switch (minigame.GetMinigameScore())
+        if (minigame.requiresStars)
         {
-            case MinigameScore.None:
-                botonFacil.enabled = true;
-                botonMedio.enabled = false;
-                botonDificil.enabled = false;
+            switch (GameManager.instance.minigamesStatus)
+            {
+                case MinigameScore.None:
+                    botonFacil.enabled = false;
+                    botonMedio.enabled = false;
+                    botonDificil.enabled = false;
 
-                estrellaVacia.SetActive(true);
-                estrellaBronce.SetActive(false);
-                estrellaPlata.SetActive(false);
-                estrellaOro.SetActive(false);
-                break;
-            case MinigameScore.Bronze:
-                botonFacil.enabled = true;
-                botonMedio.enabled = true;
-                botonDificil.enabled = false;
+                    estrellaVacia.SetActive(true);
+                    estrellaBronce.SetActive(false);
+                    estrellaPlata.SetActive(false);
+                    estrellaOro.SetActive(false);
+                    break;
+                case MinigameScore.Bronze:
+                    botonFacil.enabled = true;
+                    botonMedio.enabled = false;
+                    botonDificil.enabled = false;
 
-                estrellaVacia.SetActive(false);
-                estrellaBronce.SetActive(true);
-                estrellaPlata.SetActive(false);
-                estrellaOro.SetActive(false);
-                break;
-            case MinigameScore.Silver:
-                botonFacil.enabled = true;
-                botonMedio.enabled = true;
-                botonDificil.enabled = true;
+                    estrellaVacia.SetActive(false);
+                    estrellaBronce.SetActive(true);
+                    estrellaPlata.SetActive(false);
+                    estrellaOro.SetActive(false);
+                    break;
+                case MinigameScore.Silver:
+                    botonFacil.enabled = true;
+                    botonMedio.enabled = true;
+                    botonDificil.enabled = false;
 
-                estrellaVacia.SetActive(false);
-                estrellaBronce.SetActive(false);
-                estrellaPlata.SetActive(true);
-                estrellaOro.SetActive(false);
-                break;
-            case MinigameScore.Gold:
-                botonFacil.enabled = true;
-                botonMedio.enabled = true;
-                botonDificil.enabled = true;
+                    estrellaVacia.SetActive(false);
+                    estrellaBronce.SetActive(false);
+                    estrellaPlata.SetActive(true);
+                    estrellaOro.SetActive(false);
+                    break;
+                case MinigameScore.Gold:
+                    botonFacil.enabled = true;
+                    botonMedio.enabled = true;
+                    botonDificil.enabled = true;
 
-                estrellaVacia.SetActive(false);
-                estrellaBronce.SetActive(false);
-                estrellaPlata.SetActive(false);
-                estrellaOro.SetActive(true);
-                break;
+                    estrellaVacia.SetActive(false);
+                    estrellaBronce.SetActive(false);
+                    estrellaPlata.SetActive(false);
+                    estrellaOro.SetActive(true);
+                    break;
+            }
+        }
+        else
+        {
+            switch (minigame.GetMinigameScore())
+            {
+                case MinigameScore.None:
+                    botonFacil.enabled = true;
+                    botonMedio.enabled = false;
+                    botonDificil.enabled = false;
 
+                    estrellaVacia.SetActive(true);
+                    estrellaBronce.SetActive(false);
+                    estrellaPlata.SetActive(false);
+                    estrellaOro.SetActive(false);
+                    break;
+                case MinigameScore.Bronze:
+                    botonFacil.enabled = true;
+                    botonMedio.enabled = true;
+                    botonDificil.enabled = false;
+
+                    estrellaVacia.SetActive(false);
+                    estrellaBronce.SetActive(true);
+                    estrellaPlata.SetActive(false);
+                    estrellaOro.SetActive(false);
+                    break;
+                case MinigameScore.Silver:
+                    botonFacil.enabled = true;
+                    botonMedio.enabled = true;
+                    botonDificil.enabled = true;
+
+                    estrellaVacia.SetActive(false);
+                    estrellaBronce.SetActive(false);
+                    estrellaPlata.SetActive(true);
+                    estrellaOro.SetActive(false);
+                    break;
+                case MinigameScore.Gold:
+                    botonFacil.enabled = true;
+                    botonMedio.enabled = true;
+                    botonDificil.enabled = true;
+
+                    estrellaVacia.SetActive(false);
+                    estrellaBronce.SetActive(false);
+                    estrellaPlata.SetActive(false);
+                    estrellaOro.SetActive(true);
+                    break;
+            }
         }
     }
 

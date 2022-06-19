@@ -1617,6 +1617,7 @@ MonoBehaviour:
   name: 0
   gameScore: 0
   trigger: {fileID: 280554194}
+  requiresStars: 0
 --- !u!1 &44551521
 GameObject:
   m_ObjectHideFlags: 0
@@ -6409,6 +6410,8 @@ MonoBehaviour:
   pauseMenu: {fileID: 1043289567}
   pauseMinigame: {fileID: 2117463517}
   optionsMenu: {fileID: 1193954301}
+  isMinigameCanvasShown: 0
+  minigamesStatus: 0
   volumeSlider: {fileID: 1715264416}
 --- !u!4 &173415232
 Transform:
@@ -11495,6 +11498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  trigger: {fileID: 0}
 --- !u!70 &355848822
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -15379,6 +15383,7 @@ MonoBehaviour:
   name: 5
   gameScore: 0
   trigger: {fileID: 232301683}
+  requiresStars: 1
 --- !u!1 &487913570
 GameObject:
   m_ObjectHideFlags: 0
@@ -23538,6 +23543,7 @@ MonoBehaviour:
   name: 3
   gameScore: 0
   trigger: {fileID: 1637255241}
+  requiresStars: 0
 --- !u!1 &716833859
 GameObject:
   m_ObjectHideFlags: 0
@@ -24371,6 +24377,7 @@ MonoBehaviour:
   name: 1
   gameScore: 0
   trigger: {fileID: 630734142}
+  requiresStars: 0
 --- !u!1 &750516477
 GameObject:
   m_ObjectHideFlags: 0
@@ -27214,6 +27221,7 @@ MonoBehaviour:
   name: 2
   gameScore: 0
   trigger: {fileID: 828143142}
+  requiresStars: 0
 --- !u!1 &836224013
 GameObject:
   m_ObjectHideFlags: 0
@@ -43607,6 +43615,7 @@ MonoBehaviour:
   name: 4
   gameScore: 0
   trigger: {fileID: 1593398572}
+  requiresStars: 0
 --- !u!1 &1326419411
 GameObject:
   m_ObjectHideFlags: 0

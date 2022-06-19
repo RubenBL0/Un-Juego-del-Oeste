@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     private bool isOptionsMenuShown = false;
     public bool isMinigameCanvasShown = false;
 
+    public MinigameScore minigamesStatus = MinigameScore.None; //Se guarda el valor minimo de las estrellas
+
     AudioSource musicaPueblo;
 
     public Slider volumeSlider;
@@ -53,11 +55,16 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<PlayerController>().transform.position = DataManager.instance.GetPosition();
         musicaPueblo = GetComponent<AudioSource>();
         PlayMusic();
+        CheckStarStatus();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Period))
+        {
+            OnWinGame();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isMinigameCanvasShown)
@@ -125,10 +132,6 @@ public class GameManager : MonoBehaviour
                     currentMinigame.SetMinigameScore(MinigameScore.Bronze);
                     DataManager.instance.SaveMinigameScore(currentMinigameName, 1);
                 }
-                else
-                {
-                    print("nada");
-                }
                 break;
             case Dificultad.Medio:
                 if (currentMinigame.GetMinigameScore() == MinigameScore.Bronze)
@@ -182,7 +185,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(overworld.name);
         PlayerController.instance.transform.position = DataManager.instance.GetPosition();
         ActivatePlayer(true);
-        musicaPueblo.Play();
+        musicaPueblo.Play(); 
+        CheckStarStatus();
     }
 
     public void ReturnToMainMenu()
@@ -249,5 +253,21 @@ public class GameManager : MonoBehaviour
         optionsMenu.gameObject.SetActive(false);
         lastCanvas.gameObject.SetActive(true);
         isOptionsMenuShown = false;
+    }
+
+    public void CheckStarStatus() //Chequea el valor minimo de estrellas del jugador y lo escribe en la variable minigameStatus
+    {
+        int none = 0, bronze = 0, silver = 0, gold = 0;
+        foreach(Minijuego minijuego in FindObjectsOfType<Minijuego>(true))
+        {
+            if (!minijuego.requiresStars)
+            {
+                none = minijuego.GetMinigameScore() == MinigameScore.None ? ++none : none;
+                bronze = minijuego.GetMinigameScore() == MinigameScore.Bronze ? ++bronze : bronze;
+                silver = minijuego.GetMinigameScore() == MinigameScore.Silver ? ++silver : silver;
+                gold = minijuego.GetMinigameScore() == MinigameScore.Gold ? ++gold : gold;
+            }
+        }
+        minigamesStatus = none != 0 ? MinigameScore.None : (bronze != 0 ? MinigameScore.Bronze : (silver != 0 ? MinigameScore.Silver : MinigameScore.Gold));
     }
 }
