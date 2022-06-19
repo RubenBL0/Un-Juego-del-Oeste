@@ -229,7 +229,7 @@ public class GameManager : MonoBehaviour
     public void LoadOverworld()
     {
         currentMinigame = null;
-        SceneManager.LoadScene(overworld.name);
+        SceneManager.LoadScene("MapaPueblo");
         PlayerController.instance.transform.position = DataManager.instance.GetPosition();
         ActivatePlayer(true);
         musicaPueblo.Play(); 
