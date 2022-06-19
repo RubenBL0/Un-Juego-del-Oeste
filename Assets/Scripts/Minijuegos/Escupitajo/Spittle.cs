@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spittle : MonoBehaviour
 {
     [SerializeField] Transform bocaTransform;
+    [SerializeField] AudioSource escupitajo;
     Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
@@ -20,9 +21,10 @@ public class Spittle : MonoBehaviour
     }
 
     public void Spit(float power)
-    {
+    {        
         gameObject.SetActive(true);
-        rb.AddForce(new Vector2(-power, 7f), ForceMode2D.Impulse);
+        escupitajo.Play();
+        rb.AddForce(new Vector2(-power, 7f), ForceMode2D.Impulse);        
     }
 
     public void Restart()
