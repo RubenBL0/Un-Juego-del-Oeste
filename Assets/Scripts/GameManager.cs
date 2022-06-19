@@ -129,11 +129,14 @@ public class GameManager : MonoBehaviour
 
     public void OnWinGame()
     {
+        bool getstar = false;
         switch (currentGameDifficulty)
         {
             case Dificultad.Facil:
                 if (currentMinigame.GetMinigameScore() == MinigameScore.None)
                 {
+                    getstar = true;
+                    StarManager.instance.WinGameWithStar(Dificultad.Facil);
                     currentMinigame.SetMinigameScore(MinigameScore.Bronze);
                     DataManager.instance.SaveMinigameScore(currentMinigameName, 1);
                 }
@@ -141,6 +144,8 @@ public class GameManager : MonoBehaviour
             case Dificultad.Medio:
                 if (currentMinigame.GetMinigameScore() == MinigameScore.Bronze)
                 {
+                    getstar = true;
+                    StarManager.instance.WinGameWithStar(Dificultad.Medio);
                     currentMinigame.SetMinigameScore(MinigameScore.Silver);
                     DataManager.instance.SaveMinigameScore(currentMinigameName, 2);
                 }
@@ -148,13 +153,18 @@ public class GameManager : MonoBehaviour
             case Dificultad.Dificil:
                 if (currentMinigame.GetMinigameScore() == MinigameScore.Silver)
                 {
+                    getstar = true;
+                    StarManager.instance.WinGameWithStar(Dificultad.Dificil);
                     currentMinigame.SetMinigameScore(MinigameScore.Gold);
                     DataManager.instance.SaveMinigameScore(currentMinigameName, 3);
                 }
                 break;
         }
 
-        LoadOverworld();
+        if (!getstar)
+        {
+            Invoke("LoadOverworld", 2f);
+        }
     }
 
     public void OnLoseGame()
