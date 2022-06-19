@@ -11,6 +11,7 @@ public class ControlCarrera : MonoBehaviour
     private bool controlTecla, trenEscapado;
     [SerializeField] private float fuerzaEmpuje, fuerzaSalto;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private AudioSource carreraCaballo, piedra;
 
     private void OnEnable()
     {
@@ -25,10 +26,11 @@ public class ControlCarrera : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        carreraCaballo.Play();
         trenEscapado = false;
     }
     void Update()
-    {
+    {        
         MuevePlayer();
         ControlVelocidad();
         //Debug.Log(Vector2.Distance(transform.position, prueba.transform.position)); //distancia 6.7
@@ -86,10 +88,10 @@ public class ControlCarrera : MonoBehaviour
         }
 
         //tecla para probar movimiento sin tener que jugar todo el tiempo
-        if (Input.GetKey(KeyCode.Q) && !trenEscapado && IsGrounded())
+        /*if (Input.GetKey(KeyCode.Q) && !trenEscapado && IsGrounded())
         {
             rb.AddForce(rb.transform.right * 0.1f, ForceMode2D.Impulse);
-        }
+        }*/
     }
     void TrenEscapado()
     {
@@ -107,6 +109,7 @@ public class ControlCarrera : MonoBehaviour
         if (collision.transform.tag == "obstaculo")
         {
             //Debug.Log("obstaculo detectado");
+            piedra.Play();
             rb.AddForce(-transform.right * 8, ForceMode2D.Impulse);
         }
     }
