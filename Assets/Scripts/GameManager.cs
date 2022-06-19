@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 
     public int final; //Del 0 al 4, los diferentes finales que hay
 
+    public TextMeshProUGUI txtVictoria, txtDerrota;
+
     Object scene = null;
     private void Awake()
     {
@@ -69,6 +71,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Period))
         {
             OnWinGame();
+        }
+        if (Input.GetKeyDown(KeyCode.Comma))
+        {
+            OnLoseGame();
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -160,15 +166,40 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
-
+       
+            Time.timeScale = 0f;
+            txtVictoria.GetComponent<Animator>().SetTrigger("VictoriaIn");
         if (!getstar)
         {
-            Invoke("LoadOverworld", 2f);
+            StartCoroutine(VictoriaOut());
         }
+    }
+
+    public void VictoriaStarOut()
+    {
+        txtVictoria.GetComponent<Animator>().SetTrigger("VictoriaOut");
+    }
+
+    public IEnumerator VictoriaOut()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        txtVictoria.GetComponent<Animator>().SetTrigger("VictoriaOut");
+        Time.timeScale = 1f;
+        LoadOverworld();
     }
 
     public void OnLoseGame()
     {
+        Time.timeScale = 0f;
+        txtDerrota.GetComponent<Animator>().SetTrigger("DerrotaIn");
+        StartCoroutine(DerrotaOut());
+    }
+
+    public IEnumerator DerrotaOut()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        txtDerrota.GetComponent<Animator>().SetTrigger("DerrotaOut");
+        Time.timeScale = 1f;
         LoadOverworld();
     }
 
