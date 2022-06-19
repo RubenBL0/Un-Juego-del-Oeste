@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Minijuego : MonoBehaviour
 {
-    [SerializeField] Object minigameScene;
+    [SerializeField] string minigameScene;
 
     [SerializeField] MinigameNames name;
     [SerializeField] MinigameScore gameScore = MinigameScore.None;

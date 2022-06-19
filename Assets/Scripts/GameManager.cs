@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
     public int final; //Del 0 al 4, los diferentes finales que hay
 
     public TextMeshProUGUI txtVictoria, txtDerrota;
-
-    Object scene = null;
     private void Awake()
     {
         if (instance == null)
@@ -207,12 +205,11 @@ public class GameManager : MonoBehaviour
         LoadOverworld();
     }
 
-    public void LoadScene(Object scene)
+    public void LoadScene(string scene)
     {
         //playerTransform = FindObjectOfType<PlayerController>().transform;
         //print(playerTransform.position);
-        this.scene = scene;
-        SceneManager.LoadScene(scene.name);
+        SceneManager.LoadScene(scene);
         DataManager.instance.SavePosition(FindObjectOfType<PlayerController>().transform.position);
         ActivatePlayer(false);
         musicaPueblo.Stop();
