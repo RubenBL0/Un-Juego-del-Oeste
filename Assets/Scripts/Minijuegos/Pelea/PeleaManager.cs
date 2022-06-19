@@ -49,7 +49,6 @@ public class PeleaManager : MinijuegoController
     }
     private void Update()
     {
-        tiempoNecesario = minutos;
         if (timerTime == 0 && n_enemigos == 0)
         {
             GameOver();
