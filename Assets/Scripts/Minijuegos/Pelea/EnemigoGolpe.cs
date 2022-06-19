@@ -6,6 +6,8 @@ public class EnemigoGolpe : MonoBehaviour
 {
     [SerializeField] private DatosEnemigo datosEnemigo;
     [SerializeField] private GameObject player;
+    [SerializeField] private AudioSource golpe;
+    [SerializeField] private Enemigo enemigo;
 
     private bool controlAtaque;
     public int dano;
@@ -19,6 +21,8 @@ public class EnemigoGolpe : MonoBehaviour
     }
     void Ataca()
     {
+        enemigo.animator.SetTrigger("Pega");
+        golpe.Play();
         player.transform.GetComponent<Player>().RestaVida(dano);
         controlAtaque = true;
         StartCoroutine(DelayEntreAtaques());
