@@ -123,7 +123,8 @@ public class DueloManager : MinijuegoController
 
     void MoveCharacters()
     {
-        player.transform.position = new Vector2(player.transform.position.x - 0.5f, player.transform.position.y);
+        print(player.transform.position);
+        player.transform.position = new Vector3(player.transform.position.x - 0.5f, player.transform.position.y, player.transform.position.z);
         enemy.transform.position = new Vector2(enemy.transform.position.x + 0.5f, enemy.transform.position.y);
     }
 
