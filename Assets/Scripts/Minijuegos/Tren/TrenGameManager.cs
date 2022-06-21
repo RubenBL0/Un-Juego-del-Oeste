@@ -44,11 +44,6 @@ public class TrenGameManager : MinijuegoController
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            puntos = targetPuntos;
-            OnWinGame();
-        }
         t_puntos.text = puntos.ToString();
 
         float distancia;
