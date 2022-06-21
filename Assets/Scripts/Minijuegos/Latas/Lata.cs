@@ -25,7 +25,7 @@ public class Lata : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        impactoLata.Play();
+        SoundManager.PlaySound(impactoLata);
         Instantiate(animDisparo, GetMousePos(), Quaternion.identity);
         cuentaLatas++;
         ActualizaSprite(altSprite);

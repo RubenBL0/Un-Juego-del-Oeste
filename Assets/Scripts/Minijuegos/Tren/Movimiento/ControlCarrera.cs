@@ -26,7 +26,7 @@ public class ControlCarrera : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        carreraCaballo.Play();
+        SoundManager.PlaySound(carreraCaballo);
         trenEscapado = false;
     }
     void Update()
@@ -109,7 +109,7 @@ public class ControlCarrera : MonoBehaviour
         if (collision.transform.tag == "obstaculo")
         {
             //Debug.Log("obstaculo detectado");
-            piedra.Play();
+            SoundManager.PlaySound(piedra);
             rb.AddForce(-transform.right * 8, ForceMode2D.Impulse);
         }
     }

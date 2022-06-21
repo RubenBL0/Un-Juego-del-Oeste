@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
 
             if (hit.collider != null)
             {
-                golpe.Play();
+                SoundManager.PlaySound(golpe);
                 hit.transform.GetComponent<Enemigo>().RestaVida(dano);
             }
         }
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
             rbBotella.transform.SetParent(null);
             rbBotella.simulated = true;
             rbBotella.AddForce(transform.right * fuerzaLanzamieto, ForceMode2D.Impulse);
-            lanzaBotella.Play();
+            SoundManager.PlaySound(lanzaBotella);
             recogible = false;
         }
     }
@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
 
     public void RestaVida(int a)
     {
-        recibeGolpe.Play();
+        SoundManager.PlaySound(recibeGolpe);
         vida -= a;
         ActualizaBarraVida();
     }
