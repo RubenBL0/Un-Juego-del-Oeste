@@ -181,7 +181,7 @@ public class DueloManager : MinijuegoController
     void WinDuel()
     {
         enemyHealth -= 1;
-        SoundManager.PlaySound(disparo);
+        disparo.Play();
         playerAnim.SetTrigger("Shooting");
         enemyAnim.applyRootMotion = false;
         enemyAnim.SetTrigger("Dead");
@@ -191,7 +191,7 @@ public class DueloManager : MinijuegoController
     void LoseDuel()
     {
         playerHealth -= 1;
-        SoundManager.PlaySound(disparo);
+        disparo.Play();
         enemyAnim.SetTrigger("Shooting");
         playerAnim.applyRootMotion = false;
         playerAnim.SetTrigger("Dead");

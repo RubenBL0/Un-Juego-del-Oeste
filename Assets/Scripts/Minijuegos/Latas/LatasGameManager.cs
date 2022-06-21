@@ -54,7 +54,7 @@ public class LatasGameManager : MinijuegoController
     
     void SumaLatasYPuntos()
     {
-        SoundManager.PlaySound(disparo);
+        disparo.Play();
         puntos++;
         latasAlcanzadas++;
         InstanciaLata();
@@ -66,7 +66,7 @@ public class LatasGameManager : MinijuegoController
     }
     void RecargaMunicion()
     {
-        SoundManager.PlaySound(recarga);
+        recarga.Play();
         municion = 5;
         latasAlcanzadas = 0;
         ActualizaIm_Municion();

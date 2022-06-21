@@ -10,7 +10,7 @@ public class CompruebaDisparo : MonoBehaviour
 
     private void OnMouseDown()
     {
-        SoundManager.PlaySound(disparo);
+        disparo.Play();
         comprobarDisparo?.Invoke();
     }
 }

@@ -23,7 +23,7 @@ public class Spittle : MonoBehaviour
     public void Spit(float power)
     {        
         gameObject.SetActive(true);
-        SoundManager.PlaySound(escupitajo);
+        escupitajo.Play();
         rb.AddForce(new Vector2(-power, 7f), ForceMode2D.Impulse);        
     }
 

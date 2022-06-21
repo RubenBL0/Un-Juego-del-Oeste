@@ -36,8 +36,8 @@ public class Vaquillas : MonoBehaviour
         rb.angularVelocity = 0f;
         linea.lr.enabled = true;
         linea.lr_points[0] = gameObject.transform;
-        SoundManager.PlaySound(sonidoCuerda);
-        SoundManager.PlaySound(sonidoTirarCuerda);
+        sonidoCuerda.Play();
+        sonidoTirarCuerda.Play();
     }
     public void Liberada()
     {
@@ -45,8 +45,8 @@ public class Vaquillas : MonoBehaviour
         linea.lr.enabled = false;
         linea.lr_points[0] = null;
         StartCoroutine(MueveVaquilla());
-        SoundManager.PlaySound(sonidoTirarCuerda);
-        if (Random.Range(0f, 1f) >= 0.5f) SoundManager.PlaySound(sonidoVaca);
+        sonidoTirarCuerda.Stop();
+        if (Random.Range(0f, 1f) >= 0.5f) sonidoVaca.Play();
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {

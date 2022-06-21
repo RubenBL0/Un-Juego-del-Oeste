@@ -22,7 +22,7 @@ public class EnemigoGolpe : MonoBehaviour
     void Ataca()
     {
         enemigo.animator.SetTrigger("Pega");
-        SoundManager.PlaySound(golpe);
+        golpe.Play();
         player.transform.GetComponent<Player>().RestaVida(dano);
         controlAtaque = true;
         StartCoroutine(DelayEntreAtaques());

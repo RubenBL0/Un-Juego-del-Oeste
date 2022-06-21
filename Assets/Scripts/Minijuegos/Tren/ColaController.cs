@@ -23,7 +23,7 @@ public class ColaController : MonoBehaviour
 
             if (controlCorrutina)
             {
-                SoundManager.PlaySound(sirena);
+                sirena.Play();
                 vecesAlcanzado++;
                 controlCorrutina = false;
                 if (vecesAlcanzado <= 3) StartCoroutine(EscapaDelPlayer());                
@@ -47,7 +47,7 @@ public class ColaController : MonoBehaviour
 
             case 3:
                 animPuerta.SetTrigger("AbrirPuerta");
-                SoundManager.PlaySound(relinchaCaballo);
+                relinchaCaballo.Play();
                 tren.limVelocidad = 14f;
                 break;
 

@@ -10,13 +10,13 @@ public class Botella : MonoBehaviour
         if (collision.transform.tag == "Enemigo")
         {
             collision.transform.GetComponent<Enemigo>().Muerte();
-            SoundManager.PlaySound(botellaRota);
+            botellaRota.Play();
             Invoke("DestruirBotella", 1.5f);
         }
         if (collision != null)
         {
             Debug.Log(collision.gameObject.name);
-            SoundManager.PlaySound(botellaRota);
+            botellaRota.Play();
             Invoke("DestruirBotella", 1.5f);
         }
     }
