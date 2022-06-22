@@ -79,8 +79,7 @@ public class Enemigo : MonoBehaviour
     public void RestaVida(int a)
     {
         recibeGolpe.clip = GetRandomAudioClip();
-        recibeGolpe.volume = DataManager.instance.GetSFX();
-        recibeGolpe.Play();
+        SoundManager.PlaySound(recibeGolpe);
         vida -= a;
         Debug.Log(vida);
     }

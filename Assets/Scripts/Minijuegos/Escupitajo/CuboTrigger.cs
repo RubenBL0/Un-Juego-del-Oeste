@@ -9,7 +9,7 @@ public class CuboTrigger : MonoBehaviour
     {
         if (collision != null)
         {
-            cubo.Play();
+            SoundManager.PlaySound(cubo);
         }
     }
 }
