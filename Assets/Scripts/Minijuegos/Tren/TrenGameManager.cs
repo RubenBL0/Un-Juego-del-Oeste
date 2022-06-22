@@ -155,19 +155,19 @@ public class TrenGameManager : MinijuegoController
     public override void DifficultyEasy()
     {
         base.DifficultyEasy();
-        targetPuntos = 800;
+        targetPuntos = 750;
     }
 
     public override void DifficultyMedium()
     {
         base.DifficultyMedium();
-        targetPuntos = 1500;
+        targetPuntos = 1000;
     }
 
     public override void DifficultyHard()
     {
         base.DifficultyHard();
-        targetPuntos = 2500;
+        targetPuntos = 1500;
     }
     IEnumerator SumaPuntos()
     {

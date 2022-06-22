@@ -194,12 +194,12 @@ public class LatasGameManager : MinijuegoController
     public override void DifficultyMedium()
     {
         base.DifficultyMedium();
-        targetPuntos = 50;
+        targetPuntos = 30;
     }
 
     public override void DifficultyHard()
     {
         base.DifficultyHard();
-        targetPuntos = 100;
+        targetPuntos = 50;
     }
 }

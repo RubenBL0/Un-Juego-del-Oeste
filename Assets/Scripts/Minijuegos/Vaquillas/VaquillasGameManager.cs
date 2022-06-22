@@ -154,18 +154,18 @@ public class VaquillasGameManager : MinijuegoController
     public override void DifficultyEasy()
     {
         base.DifficultyEasy();
-        puntosNecesarios = 50;
+        puntosNecesarios = 100;
     }
 
     public override void DifficultyMedium()
     {
         base.DifficultyMedium();
-        puntosNecesarios= 150;
+        puntosNecesarios= 250;
     }
 
     public override void DifficultyHard()
     {
         base.DifficultyHard();
-        puntosNecesarios = 300;
+        puntosNecesarios = 500;
     }
 }
